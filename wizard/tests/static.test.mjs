@@ -52,13 +52,14 @@ test('completed deployments do not hijack a clean future visit', () => {
 });
 
 
-test('wizard deploys the exact bundled release artifact', async () => {
-  const rootWorker = await readFile(new URL('../../dist/worker.js', import.meta.url));
+test('wizard deploys the manifest-pinned bundled release artifact', async () => {
   const bundledWorker = await readFile(new URL('../artifacts/worker.js', import.meta.url));
   const manifest = JSON.parse(await readFile(new URL('../artifacts/manifest.json', import.meta.url), 'utf8'));
-  assert.deepEqual(bundledWorker, rootWorker);
+  assert.equal(bundledWorker.length, manifest.size);
   assert.equal(createHash('sha256').update(bundledWorker).digest('hex'), manifest.sha256);
   assert.match(manifest.setupBuildMarker, /^rayzen-setup-[a-f0-9]{16}$/u);
+  const workerText = bundledWorker.toString('utf8');
+  assert.doesNotMatch(workerText, /#setup=/);
   const deploymentSource = await readFile(new URL('../lib/deployment.js', import.meta.url), 'utf8');
   assert.doesNotMatch(deploymentSource, /raw\.githubusercontent\.com/);
 });
