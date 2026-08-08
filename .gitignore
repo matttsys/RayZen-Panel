@@ -1,0 +1,46 @@
+# Deny-by-default: everything is ignored and each shipped path is re-added
+# below. A stray build artifact, credential file or editor directory therefore
+# cannot be committed by accident.
+*
+!.gitignore
+!.gitattributes
+!package.json
+!package-lock.json
+!tsconfig.json
+!wrangler.jsonc
+!LICENSE
+!src/
+!src/**
+!scripts/
+!scripts/**
+!tests/
+!tests/**
+!vitest.config.ts
+!perf-baseline.json
+!.github/
+!.github/**
+!README_fa.md
+!README.md
+!RELEASE.md
+!CHANGELOG.md
+!CONTRIBUTING.md
+!SECURITY.md
+!rayzen-mark.png
+!rayzen-logo.png
+!previews/
+!previews/**
+!docs
+!docs/**
+
+# Re-ignore paths the broad allowlist above would otherwise let through.
+node_modules/
+dist/
+.wrangler/
+.claude/
+*.log
+
+# Shipped Wizard v2 and production Worker artifact.
+!wizard/
+!wizard/**
+!dist/
+!dist/worker.js

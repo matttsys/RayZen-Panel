@@ -1,0 +1,160 @@
+name: Build and Release
+
+# Least privilege at the top: read-only by default. The `release` job raises it to
+# `contents: write` for itself, which is the only job that publishes anything.
+permissions:
+  contents: read
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      release:
+        description: "Publish a release for the current package.json version"
+        required: false
+        default: "false"
+
+jobs:
+  verify:
+    name: Verify
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type check
+        run: npm run check
+
+      # Resolves every relative markdown link on disk, so a moved or deleted document
+      # fails here instead of in a reader's browser.
+      - name: Check documentation links
+        run: npm run check:doc-links
+
+      - name: Test
+        run: npm test
+
+      - name: Build project
+        run: npm run build
+
+      # The artifact doubles as the panel's own self-update payload, so byte
+      # reproducibility is a property worth asserting rather than assuming: it is what
+      # makes two deployments of the same commit comparable.
+      - name: Check the build is reproducible
+        run: |
+          set -euo pipefail
+          cp dist/worker.js "$RUNNER_TEMP/worker.first.js"
+          npm run build
+          cmp "$RUNNER_TEMP/worker.first.js" dist/worker.js
+
+      - name: Check bundle size budget
+        run: npm run size
+
+      # The Deploy to Cloudflare button runs `npm run build` and `wrangler deploy`
+      # against the committed wrangler.jsonc, so this is the check that the button's
+      # exact path works. It contacts no API and uploads nothing.
+      - name: Validate the deploy configuration
+        run: npm run deploy:check
+
+      # The gate on the path most users take. It drives dist/worker.js exactly as
+      # Cloudflare deploys it from the button: no identity, empty KV. The property it
+      # protects is reachability, which no unit test can assert on its own: a
+      # deployment whose setup page never appeared would be a Worker nobody could
+      # sign in to, and that failure looks like a dead end rather than an exception.
+      - name: One-click deployment flow test
+        run: npm run test:deploy-flow
+
+      - name: PBKDF2 runtime compatibility and migration test
+        run: npm run test:pbkdf2
+
+      # The pinned-identity path (see scripts/package-worker.js). Credentials here are
+      # throwaway CI values, and the flow test then drives the real artifact through
+      # the documented user journeys.
+      - name: Package a pinned-identity artifact
+        run: npm run package
+        env:
+          RAYZEN_MAIN_DOMAIN: rayzen-ci.example.workers.dev
+          RAYZEN_ACC_EMAIL: ci@example.invalid
+          RAYZEN_SECURE_PATH: ciVerificationPath
+          RAYZEN_VL_UUID: 00000000-0000-4000-8000-000000000001
+          RAYZEN_TR_PASS: ciTrojanPassword
+
+      - name: Pinned-identity flow test
+        run: npm run test:flow
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: worker
+          # Only the credential-free build. `dist/worker.deploy.js` carries the identity
+          # block and must never be published, even with throwaway CI values in it.
+          path: dist/worker.js
+          if-no-files-found: error
+
+  release:
+    name: Release
+    needs: verify
+    if: github.event_name == 'workflow_dispatch' && inputs.release == 'true'
+    runs-on: ubuntu-latest
+
+    # Raised only here: this job creates a tag and uploads release assets.
+    permissions:
+      contents: write
+
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v4
+
+      - name: Get release version
+        id: get_version
+        run: echo "version=$(jq -r .version package.json)" >> $GITHUB_OUTPUT
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project
+        run: npm run build
+
+      - name: Read release note
+        id: read_release
+        shell: bash
+        run: |
+          {
+            echo 'RELEASE_BODY<<RAYZEN_EOF'
+            cat RELEASE.md
+            echo RAYZEN_EOF
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Upload Release Assets
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          # Named explicitly rather than globbed as `dist/*`. A glob would publish
+          # `dist/worker.deploy.js` the moment packaging is added to this job, and that
+          # file carries the deployment's account token and credentials.
+          file: dist/worker.js
+          tag: v${{ steps.get_version.outputs.version }}
+          release_name: Release v${{ steps.get_version.outputs.version }}
+          overwrite: true
+          file_glob: false
+          prerelease: ${{ github.ref != 'refs/heads/main' }}
+          promote: ${{ github.ref == 'refs/heads/main' }}
+          make_latest: ${{ github.ref == 'refs/heads/main' }}
+          body: ${{ steps.read_release.outputs.RELEASE_BODY }}

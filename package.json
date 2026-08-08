@@ -1,0 +1,61 @@
+{
+  "name": "rayzen-edge-worker",
+  "version": "1.0.0",
+  "license": "GPL-3.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "tsc --noEmit",
+    "check:doc-links": "node scripts/check-doc-links.js",
+    "build": "node scripts/build.js",
+    "package": "node scripts/package-worker.js",
+    "install:cloudflare": "node scripts/install.mjs",
+    "name": "node scripts/worker-name.mjs",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:flow": "node --import ./scripts/preview-register.mjs scripts/flow-test.js",
+    "test:deploy-flow": "node --import ./scripts/preview-register.mjs scripts/deploy-flow-test.js",
+    "test:pbkdf2": "node --import ./scripts/preview-register.mjs scripts/pbkdf2-migration-test.js",
+    "deploy:check": "wrangler deploy --dry-run",
+    "size": "node scripts/size-check.js",
+    "preview": "node --import ./scripts/preview-register.mjs scripts/preview.js",
+    "preview:setup": "PREVIEW_SETUP=1 node --import ./scripts/preview-register.mjs scripts/preview.js",
+    "backup": "bash scripts/backup.sh",
+    "deploy": "node scripts/deploy.mjs",
+    "test:design-tokens": "node scripts/design-token-audit.js",
+    "test:setup-browser": "node --import ./scripts/preview-register.mjs scripts/setup-browser-flow-test.js",
+    "release:sync-wizard": "node scripts/sync-wizard-artifact.js",
+    "test:module-cycles": "node scripts/module-cycle-test.js",
+    "build:dev": "RAYZEN_BUILD_MODE=development node scripts/build.js",
+    "build:minified": "RAYZEN_BUILD_MODE=minified node scripts/build.js",
+    "build:sourcemap": "RAYZEN_BUILD_MODE=sourcemap node scripts/build.js",
+    "test:setup-tdz": "node scripts/setup-tdz-regression-test.js",
+    "test:lexical-tdz": "node scripts/lexical-tdz-audit.js",
+    "verify:tdz-build-matrix": "npm run test:module-cycles && npm run test:lexical-tdz && npm run build:dev && npm run test:setup-browser && npm run build:minified && npm run test:setup-tdz && npm run test:setup-browser && npm run build:sourcemap && npm run test:setup-tdz",
+    "incident:repro-legacy-tdz": "node scripts/incident-repro-legacy-tdz.js"
+  },
+  "cloudflare": {
+    "label": "RayZen Edge",
+    "bindings": {
+      "kv": {
+        "description": "Storage for RayZen settings, administrator authentication, session signing, WARP accounts and deployment identity. Use one namespace per deployment."
+      }
+    }
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260603.1",
+    "@types/node": "^25.9.1",
+    "esbuild": "0.28.1",
+    "jose": "^6.2.3",
+    "typescript": "^6.0.3",
+    "vitest": "4.1.10",
+    "wrangler": "4.86.0"
+  },
+  "dependencies": {
+    "qrcode-generator": "^2.0.4"
+  },
+  "description": "RayZen \u2014 a Cloudflare Worker networking application with guided configuration, subscriptions, endpoint scanning, diagnostics and Telegram integration.",
+  "engines": {
+    "node": ">=20.10"
+  }
+}

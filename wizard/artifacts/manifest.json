@@ -1,0 +1,18 @@
+{
+  "product": "RayZen",
+  "version": "1.0.0",
+  "entry": "worker.js",
+  "compatibilityDate": "2026-08-06",
+  "compatibilityFlags": [
+    "nodejs_compat"
+  ],
+  "kvBinding": "kv",
+  "sha256": "69024b7e8f05ff5e9eaf5a6b100b3de7dabdd91c258a499bc040a216bbefa8bd",
+  "size": 1342511,
+  "setupBuildMarker": "rayzen-setup-6df08e2d78a47eb1",
+  "buildMode": "release-prebuilt-rca",
+  "toolchain": {
+    "browserSetupVerificationMinifier": "bundled Terser (sandbox forensic runtime)",
+    "productionSourceBuild": "esbuild 0.28.1 (package-lock)"
+  }
+}

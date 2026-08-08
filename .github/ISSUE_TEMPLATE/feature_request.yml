@@ -1,0 +1,75 @@
+name: Feature Request | درخواست قابلیت
+description: Suggest a capability or improvement for RayZen Panel
+labels: ['enhancement']
+body:
+    - type: markdown
+      attributes:
+          value: |
+              Describe the problem before the solution. A request that explains what you were unable to do is much easier to evaluate than one that only names a feature.
+              ابتدا مشکل را توضیح دهید و سپس راه‌حل را. درخواستی که بگوید چه کاری برایتان ممکن نبوده، بسیار راحت‌تر بررسی می‌شود.
+    - type: checkboxes
+      id: confirm-search
+      attributes:
+          label: Attention | توجه
+          description: |
+            Please search existing RayZen issues and the documentation first.<br>
+            لطفاً ابتدا ایشوهای موجود RayZen و مستندات را بررسی کنید.
+          options:
+              - label: I searched and no similar request was found | جستجو کردم و درخواست مشابهی پیدا نشد
+                required: true
+              - label: I read the documentation and this is not already possible | مستندات را خواندم و این کار در حال حاضر امکان‌پذیر نیست
+                required: true
+    - type: textarea
+      id: problem
+      attributes:
+          label: What problem does this solve? | چه مشکلی را حل می‌کند؟
+          description: |
+              What were you trying to do, and what stopped you?<br>
+              می‌خواستید چه کاری انجام دهید و چه چیزی مانع شد؟
+      validations:
+          required: true
+    - type: textarea
+      id: proposal
+      attributes:
+          label: Proposed solution | راه‌حل پیشنهادی
+          description: |
+              How you imagine it working in the panel, at deploy time, or in the subscription output.<br>
+              تصور شما از عملکرد آن در پنل، هنگام استقرار یا در خروجی سابسکریپشن.
+      validations:
+          required: true
+    - type: textarea
+      id: alternatives
+      attributes:
+          label: Alternatives considered | راه‌حل‌های جایگزین
+          description: |
+              Workarounds you tried, and why they were not enough.<br>
+              راه‌حل‌های موقتی که امتحان کردید و دلیل کافی نبودن آن‌ها.
+      validations:
+          required: false
+    - type: dropdown
+      id: area
+      attributes:
+          label: Area | حوزه
+          options:
+              - Panel UI | رابط پنل
+              - Subscriptions and clients | سابسکریپشن و کلاینت‌ها
+              - Endpoint scanner | اسکنر اندپوینت
+              - Routing and DNS | مسیریابی و DNS
+              - WARP | WARP
+              - Deployment and setup | استقرار و راه‌اندازی
+              - Telegram bot | ربات تلگرام
+              - Backup and restore | پشتیبان‌گیری و بازیابی
+              - Documentation | مستندات
+              - Other | سایر
+      validations:
+          required: true
+    - type: checkboxes
+      id: scope
+      attributes:
+          label: Scope | محدوده
+          description: |
+            RayZen runs only on Cloudflare Workers and deliberately does not become a VPS panel or a multi-tenant reseller platform.<br>
+            RayZen فقط روی Cloudflare Workers اجرا می‌شود و آگاهانه به پنل VPS یا پلتفرم فروش چندکاربره تبدیل نمی‌شود.
+          options:
+              - label: This request fits a single-operator Cloudflare Workers panel | این درخواست با یک پنل تک‌اپراتوری روی Cloudflare Workers سازگار است
+                required: true

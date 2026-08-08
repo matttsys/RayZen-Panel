@@ -1,0 +1,76 @@
+{
+  "$comment": [
+    "Source assets, not shipped assets.",
+    "",
+    "The pages no longer embed a font. The woff2 files here are kept because they are",
+    "where the inline SVG outlines come from: `python3 scripts/extract-glyphs.py` reads",
+    "them and emits the `RZ_GLYPH_PATHS` and `ICON_PATHS` tables the pages carry. Nothing",
+    "in `npm run build` reads this directory.",
+    "",
+    "So the workflow for adding an icon is: add the name here, run",
+    "`node scripts/fetch-icon-fonts.js` to refetch the subset, then",
+    "`python3 scripts/extract-glyphs.py` and paste the new entry into the page's table.",
+    "",
+    "`fill` and `axes` are the instance the outlines were taken at. They are recorded",
+    "because a later refetch at a different FILL would silently produce differently",
+    "weighted icons beside the existing ones.",
+    "",
+    "tests/golden/icon-subset.test.ts gates the pages, not this file: every name a page",
+    "renders must have an outline, and every outline must be rendered."
+  ],
+  "pages": {
+    "panel": {
+      "axes": "opsz,wght,FILL,GRAD@24,400,0,0",
+      "fill": 0,
+      "bytes": 6340,
+      "icons": [
+        "add_circle",
+        "autorenew",
+        "cancel",
+        "check_circle",
+        "clock_loader_40",
+        "close",
+        "cloud_download",
+        "content_copy",
+        "dashboard",
+        "data_usage",
+        "delete",
+        "dns",
+        "download",
+        "draft",
+        "error",
+        "fingerprint",
+        "help",
+        "info",
+        "key_vertical",
+        "keyboard_arrow_down",
+        "link",
+        "logout",
+        "open_in_new",
+        "qr_code",
+        "refresh",
+        "save",
+        "settings",
+        "settings_backup_restore",
+        "share",
+        "smart_toy",
+        "tune",
+        "upgrade",
+        "upload",
+        "verified",
+        "visibility",
+        "visibility_off",
+        "warning"
+      ]
+    },
+    "proxy-ip": {
+      "axes": "opsz,wght,FILL,GRAD@24,400,0,0",
+      "fill": 0,
+      "bytes": 1512,
+      "icons": [
+        "content_copy",
+        "flash_on"
+      ]
+    }
+  }
+}

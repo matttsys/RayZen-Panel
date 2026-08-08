@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--
+  The measurement frame.
+
+  This document exists for one reason: it is the only place in RayZen allowed to open
+  connections to arbitrary Cloudflare addresses, and it holds nothing worth stealing.
+
+  Why a separate document at all
+
+  Measuring edge latency from the user's own network means fetching hundreds of bare
+  IP addresses. A Content-Security-Policy cannot express a CIDR range, so the policy
+  for that has to be `connect-src https:`, and enumerating a thousand addresses in a
+  header is ~32 KB that proxies will not carry. Relaxing the *panel's* policy to allow
+  it would mean the page holding the subscription links, the VLESS UUID and the Trojan
+  password could also post them anywhere, which is exactly the property the panel's CSP
+  exists to deny.
+
+  So the permission is isolated instead. This frame is loaded with
+  `sandbox="allow-scripts"`, without `allow-same-origin`, so it runs in an opaque
+  origin: it cannot read the panel's DOM, its cookies, or its storage, even though it
+  is served from the same host. It receives a list of addresses over `postMessage` and
+  returns timings. It never sees a credential, and there is nothing in it to exfiltrate
+  even if the measurement code were replaced wholesale.
+
+  What is being measured, precisely
+
+  Every request fails. No certificate matches a bare IP address, so the TLS handshake
+  is refused and `fetch` rejects. The *timing of that rejection* is the measurement: a
+  reachable Cloudflare edge refuses in tens of milliseconds, and an address that is not
+  routable from this network never answers at all. Measured in Chromium: 17-43 ms for
+  reachable addresses against a clean 2500 ms timeout for unroutable controls.
+
+  This is connect latency, TCP and TLS together. A browser cannot separate the two, so
+  the panel does not claim to.
+-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>RayZen measurement</title>
+    <style>/* CSS_PLACEHOLDER */</style>
+</head>
+<body>
+    <p class="note">
+        This page measures connection latency from your device. It is used by the RayZen
+        panel and is not meant to be opened directly.
+    </p>
+    <script>/* JS_PLACEHOLDER */</script>
+</body>
+</html>

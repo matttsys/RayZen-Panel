@@ -1,0 +1,1221 @@
+--- headers ---
+content-type: application/json
+content-disposition: attachment; filename=rayzen-warp-xray.json
+cache-control: no-store, no-cache, must-revalidate, max-age=0
+pragma: no-cache
+expires: 0
+--- body ---
+[
+    {
+        "remarks": "💮 1 - Warp 🇮🇷",
+        "log": {
+            "loglevel": "warning"
+        },
+        "dns": {
+            "servers": [
+                {
+                    "address": "1.1.1.1",
+                    "tag": "remote-dns"
+                },
+                {
+                    "address": "8.8.8.8",
+                    "domains": [
+                        "full:engage.cloudflareclient.com"
+                    ],
+                    "skipFallback": true
+                }
+            ],
+            "queryStrategy": "UseIPv4",
+            "tag": "dns"
+        },
+        "inbounds": [
+            {
+                "listen": "127.0.0.1",
+                "port": 10808,
+                "protocol": "socks",
+                "settings": {
+                    "auth": "noauth",
+                    "udp": true
+                },
+                "sniffing": {
+                    "destOverride": [
+                        "http",
+                        "tls"
+                    ],
+                    "enabled": true,
+                    "routeOnly": true
+                },
+                "tag": "mixed-in"
+            },
+            {
+                "listen": "127.0.0.1",
+                "port": 10853,
+                "protocol": "dokodemo-door",
+                "settings": {
+                    "address": "1.1.1.1",
+                    "network": "tcp,udp",
+                    "port": 53
+                },
+                "tag": "dns-in"
+            }
+        ],
+        "outbounds": [
+            {
+                "protocol": "wireguard",
+                "settings": {
+                    "address": [
+                        "172.16.0.2/32",
+                        "2606:4700:0000:0000:0000:0000:0000:0001/128"
+                    ],
+                    "mtu": 1280,
+                    "peers": [
+                        {
+                            "endpoint": "engage.cloudflareclient.com:2408",
+                            "publicKey": "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB=",
+                            "keepAlive": 5
+                        }
+                    ],
+                    "reserved": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "secretKey": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
+                },
+                "tag": "proxy"
+            },
+            {
+                "protocol": "dns",
+                "settings": {},
+                "tag": "dns-out"
+            },
+            {
+                "protocol": "freedom",
+                "settings": {
+                    "domainStrategy": "UseIP"
+                },
+                "tag": "direct"
+            },
+            {
+                "protocol": "blackhole",
+                "settings": {
+                    "response": {
+                        "type": "http"
+                    }
+                },
+                "tag": "block"
+            }
+        ],
+        "routing": {
+            "domainStrategy": "IPIfNonMatch",
+            "rules": [
+                {
+                    "inboundTag": [
+                        "mixed-in"
+                    ],
+                    "port": 53,
+                    "outboundTag": "dns-out",
+                    "type": "field"
+                },
+                {
+                    "inboundTag": [
+                        "dns-in"
+                    ],
+                    "outboundTag": "dns-out",
+                    "type": "field"
+                },
+                {
+                    "inboundTag": [
+                        "remote-dns"
+                    ],
+                    "outboundTag": "proxy",
+                    "type": "field"
+                },
+                {
+                    "inboundTag": [
+                        "dns"
+                    ],
+                    "outboundTag": "direct",
+                    "type": "field"
+                },
+                {
+                    "domain": [
+                        "geosite:private"
+                    ],
+                    "outboundTag": "direct",
+                    "type": "field"
+                },
+                {
+                    "ip": [
+                        "geoip:private"
+                    ],
+                    "outboundTag": "direct",
+                    "type": "field"
+                },
+                {
+                    "network": "tcp,udp",
+                    "outboundTag": "proxy",
+                    "type": "field"
+                }
+            ]
+        },
+        "policy": {
+            "levels": {
+                "0": {
+                    "connIdle": 300,
+                    "handshake": 4,
+                    "uplinkOnly": 1,
+                    "downlinkOnly": 1
+                }
+            },
+            "system": {
+                "statsOutboundUplink": true,
+                "statsOutboundDownlink": true
+            }
+        },
+        "stats": {}
+    },
+    {
+        "remarks": "💮 1 - WoW 🌍",
+        "log": {
+            "loglevel": "warning"
+        },
+        "dns": {
+            "servers": [
+                {
+                    "address": "1.1.1.1",
+                    "tag": "remote-dns"
+                },
+                {
+                    "address": "8.8.8.8",
+                    "domains": [
+                        "full:engage.cloudflareclient.com"
+                    ],
+                    "skipFallback": true
+                }
+            ],
+            "queryStrategy": "UseIPv4",
+            "tag": "dns"
+        },
+        "inbounds": [
+            {
+                "listen": "127.0.0.1",
+                "port": 10808,
+                "protocol": "socks",
+                "settings": {
+                    "auth": "noauth",
+                    "udp": true
+                },
+                "sniffing": {
+                    "destOverride": [
+                        "http",
+                        "tls"
+                    ],
+                    "enabled": true,
+                    "routeOnly": true
+                },
+                "tag": "mixed-in"
+            },
+            {
+                "listen": "127.0.0.1",
+                "port": 10853,
+                "protocol": "dokodemo-door",
+                "settings": {
+                    "address": "1.1.1.1",
+                    "network": "tcp,udp",
+                    "port": 53
+                },
+                "tag": "dns-in"
+            }
+        ],
+        "outbounds": [
+            {
+                "protocol": "wireguard",
+                "settings": {
+                    "address": [
+                        "172.16.0.2/32",
+                        "2606:4700:0000:0000:0000:0000:0000:0002/128"
+                    ],
+                    "mtu": 1280,
+                    "peers": [
+                        {
+                            "endpoint": "162.159.192.1:2408",
+                            "publicKey": "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB=",
+                            "keepAlive": 5
+                        }
+                    ],
+                    "reserved": [
+                        4,
+                        16,
+                        65
+                    ],
+                    "secretKey": "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC="
+                },
+                "streamSettings": {
+                    "sockopt": {
+                        "dialerProxy": "proxy"
+                    }
+                },
+                "tag": "chain"
+            },
+            {
+                "protocol": "wireguard",
+                "settings": {
+                    "address": [
+                        "172.16.0.2/32",
+                        "2606:4700:0000:0000:0000:0000:0000:0001/128"
+                    ],
+                    "mtu": 1280,
+                    "peers": [
+                        {
+                            "endpoint": "engage.cloudflareclient.com:2408",
+                            "publicKey": "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB=",
+                            "keepAlive": 5
+                        }
+                    ],
+                    "reserved": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "secretKey": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
+                },
+                "tag": "proxy"
+            },
+            {
+                "protocol": "dns",
+                "settings": {},
+                "tag": "dns-out"
+            },
+            {
+                "protocol": "freedom",
+                "settings": {
+                    "domainStrategy": "UseIP"
+                },
+                "tag": "direct"
+            },
+            {
+                "protocol": "blackhole",
+                "settings": {
+                    "response": {
+                        "type": "http"
+                    }
+                },
+                "tag": "block"
+            }
+        ],
+        "routing": {
+            "domainStrategy": "IPIfNonMatch",
+            "rules": [
+                {
+                    "inboundTag": [
+                        "mixed-in"
+                    ],
+                    "port": 53,
+                    "outboundTag": "dns-out",
+                    "type": "field"
+                },
+                {
+                    "inboundTag": [
+                        "dns-in"
+                    ],
+                    "outboundTag": "dns-out",
+                    "type": "field"
+                },
+                {
+                    "inboundTag": [
+                        "remote-dns"
+                    ],
+                    "outboundTag": "proxy",
+                    "type": "field"
+                },
+                {
+                    "inboundTag": [
+                        "dns"
+                    ],
+                    "outboundTag": "direct",
+                    "type": "field"
+                },
+                {
+                    "domain": [
+                        "geosite:private"
+                    ],
+                    "outboundTag": "direct",
+                    "type": "field"
+                },
+                {
+                    "ip": [
+                        "geoip:private"
+                    ],
+                    "outboundTag": "direct",
+                    "type": "field"
+                },
+                {
+                    "network": "tcp,udp",
+                    "outboundTag": "chain",
+                    "type": "field"
+                }
+            ]
+        },
+        "policy": {
+            "levels": {
+                "0": {
+                    "connIdle": 300,
+                    "handshake": 4,
+                    "uplinkOnly": 1,
+                    "downlinkOnly": 1
+                }
+            },
+            "system": {
+                "statsOutboundUplink": true,
+                "statsOutboundDownlink": true
+            }
+        },
+        "stats": {}
+    },
+    {
+        "remarks": "💮 2 - Warp 🇮🇷",
+        "log": {
+            "loglevel": "warning"
+        },
+        "dns": {
+            "servers": [
+                {
+                    "address": "1.1.1.1",
+                    "tag": "remote-dns"
+                }
+            ],
+            "queryStrategy": "UseIPv4",
+            "tag": "dns"
+        },
+        "inbounds": [
+            {
+                "listen": "127.0.0.1",
+                "port": 10808,
+                "protocol": "socks",
+                "settings": {
+                    "auth": "noauth",
+                    "udp": true
+                },
+                "sniffing": {
+                    "destOverride": [
+                        "http",
+                        "tls"
+                    ],
+                    "enabled": true,
+                    "routeOnly": true
+                },
+                "tag": "mixed-in"
+            },
+            {
+                "listen": "127.0.0.1",
+                "port": 10853,
+                "protocol": "dokodemo-door",
+                "settings": {
+                    "address": "1.1.1.1",
+                    "network": "tcp,udp",
+                    "port": 53
+                },
+                "tag": "dns-in"
+            }
+        ],
+        "outbounds": [
+            {
+                "protocol": "wireguard",
+                "settings": {
+                    "address": [
+                        "172.16.0.2/32",
+                        "2606:4700:0000:0000:0000:0000:0000:0001/128"
+                    ],
+                    "mtu": 1280,
+                    "peers": [
+                        {
+                            "endpoint": "162.159.192.1:2408",
+                            "publicKey": "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB=",
+                            "keepAlive": 5
+                        }
+                    ],
+                    "reserved": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "secretKey": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
+                },
+                "tag": "proxy"
+            },
+            {
+                "protocol": "dns",
+                "settings": {},
+                "tag": "dns-out"
+            },
+            {
+                "protocol": "freedom",
+                "settings": {
+                    "domainStrategy": "UseIP"
+                },
+                "tag": "direct"
+            },
+            {
+                "protocol": "blackhole",
+                "settings": {
+                    "response": {
+                        "type": "http"
+                    }
+                },
+                "tag": "block"
+            }
+        ],
+        "routing": {
+            "domainStrategy": "IPIfNonMatch",
+            "rules": [
+                {
+                    "inboundTag": [
+                        "mixed-in"
+                    ],
+                    "port": 53,
+                    "outboundTag": "dns-out",
+                    "type": "field"
+                },
+                {
+                    "inboundTag": [
+                        "dns-in"
+                    ],
+                    "outboundTag": "dns-out",
+                    "type": "field"
+                },
+                {
+                    "inboundTag": [
+                        "remote-dns"
+                    ],
+                    "outboundTag": "proxy",
+                    "type": "field"
+                },
+                {
+                    "inboundTag": [
+                        "dns"
+                    ],
+                    "outboundTag": "direct",
+                    "type": "field"
+                },
+                {
+                    "domain": [
+                        "geosite:private"
+                    ],
+                    "outboundTag": "direct",
+                    "type": "field"
+                },
+                {
+                    "ip": [
+                        "geoip:private"
+                    ],
+                    "outboundTag": "direct",
+                    "type": "field"
+                },
+                {
+                    "network": "tcp,udp",
+                    "outboundTag": "proxy",
+                    "type": "field"
+                }
+            ]
+        },
+        "policy": {
+            "levels": {
+                "0": {
+                    "connIdle": 300,
+                    "handshake": 4,
+                    "uplinkOnly": 1,
+                    "downlinkOnly": 1
+                }
+            },
+            "system": {
+                "statsOutboundUplink": true,
+                "statsOutboundDownlink": true
+            }
+        },
+        "stats": {}
+    },
+    {
+        "remarks": "💮 2 - WoW 🌍",
+        "log": {
+            "loglevel": "warning"
+        },
+        "dns": {
+            "servers": [
+                {
+                    "address": "1.1.1.1",
+                    "tag": "remote-dns"
+                }
+            ],
+            "queryStrategy": "UseIPv4",
+            "tag": "dns"
+        },
+        "inbounds": [
+            {
+                "listen": "127.0.0.1",
+                "port": 10808,
+                "protocol": "socks",
+                "settings": {
+                    "auth": "noauth",
+                    "udp": true
+                },
+                "sniffing": {
+                    "destOverride": [
+                        "http",
+                        "tls"
+                    ],
+                    "enabled": true,
+                    "routeOnly": true
+                },
+                "tag": "mixed-in"
+            },
+            {
+                "listen": "127.0.0.1",
+                "port": 10853,
+                "protocol": "dokodemo-door",
+                "settings": {
+                    "address": "1.1.1.1",
+                    "network": "tcp,udp",
+                    "port": 53
+                },
+                "tag": "dns-in"
+            }
+        ],
+        "outbounds": [
+            {
+                "protocol": "wireguard",
+                "settings": {
+                    "address": [
+                        "172.16.0.2/32",
+                        "2606:4700:0000:0000:0000:0000:0000:0002/128"
+                    ],
+                    "mtu": 1280,
+                    "peers": [
+                        {
+                            "endpoint": "162.159.192.1:2408",
+                            "publicKey": "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB=",
+                            "keepAlive": 5
+                        }
+                    ],
+                    "reserved": [
+                        4,
+                        16,
+                        65
+                    ],
+                    "secretKey": "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC="
+                },
+                "streamSettings": {
+                    "sockopt": {
+                        "dialerProxy": "proxy"
+                    }
+                },
+                "tag": "chain"
+            },
+            {
+                "protocol": "wireguard",
+                "settings": {
+                    "address": [
+                        "172.16.0.2/32",
+                        "2606:4700:0000:0000:0000:0000:0000:0001/128"
+                    ],
+                    "mtu": 1280,
+                    "peers": [
+                        {
+                            "endpoint": "162.159.192.1:2408",
+                            "publicKey": "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB=",
+                            "keepAlive": 5
+                        }
+                    ],
+                    "reserved": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "secretKey": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
+                },
+                "tag": "proxy"
+            },
+            {
+                "protocol": "dns",
+                "settings": {},
+                "tag": "dns-out"
+            },
+            {
+                "protocol": "freedom",
+                "settings": {
+                    "domainStrategy": "UseIP"
+                },
+                "tag": "direct"
+            },
+            {
+                "protocol": "blackhole",
+                "settings": {
+                    "response": {
+                        "type": "http"
+                    }
+                },
+                "tag": "block"
+            }
+        ],
+        "routing": {
+            "domainStrategy": "IPIfNonMatch",
+            "rules": [
+                {
+                    "inboundTag": [
+                        "mixed-in"
+                    ],
+                    "port": 53,
+                    "outboundTag": "dns-out",
+                    "type": "field"
+                },
+                {
+                    "inboundTag": [
+                        "dns-in"
+                    ],
+                    "outboundTag": "dns-out",
+                    "type": "field"
+                },
+                {
+                    "inboundTag": [
+                        "remote-dns"
+                    ],
+                    "outboundTag": "proxy",
+                    "type": "field"
+                },
+                {
+                    "inboundTag": [
+                        "dns"
+                    ],
+                    "outboundTag": "direct",
+                    "type": "field"
+                },
+                {
+                    "domain": [
+                        "geosite:private"
+                    ],
+                    "outboundTag": "direct",
+                    "type": "field"
+                },
+                {
+                    "ip": [
+                        "geoip:private"
+                    ],
+                    "outboundTag": "direct",
+                    "type": "field"
+                },
+                {
+                    "network": "tcp,udp",
+                    "outboundTag": "chain",
+                    "type": "field"
+                }
+            ]
+        },
+        "policy": {
+            "levels": {
+                "0": {
+                    "connIdle": 300,
+                    "handshake": 4,
+                    "uplinkOnly": 1,
+                    "downlinkOnly": 1
+                }
+            },
+            "system": {
+                "statsOutboundUplink": true,
+                "statsOutboundDownlink": true
+            }
+        },
+        "stats": {}
+    },
+    {
+        "remarks": "💮 Warp - Best Ping 🚀",
+        "log": {
+            "loglevel": "warning"
+        },
+        "dns": {
+            "servers": [
+                {
+                    "address": "1.1.1.1",
+                    "tag": "remote-dns"
+                },
+                {
+                    "address": "8.8.8.8",
+                    "domains": [
+                        "full:engage.cloudflareclient.com"
+                    ],
+                    "skipFallback": true
+                }
+            ],
+            "queryStrategy": "UseIPv4",
+            "tag": "dns"
+        },
+        "inbounds": [
+            {
+                "listen": "127.0.0.1",
+                "port": 10808,
+                "protocol": "socks",
+                "settings": {
+                    "auth": "noauth",
+                    "udp": true
+                },
+                "sniffing": {
+                    "destOverride": [
+                        "http",
+                        "tls"
+                    ],
+                    "enabled": true,
+                    "routeOnly": true
+                },
+                "tag": "mixed-in"
+            },
+            {
+                "listen": "127.0.0.1",
+                "port": 10853,
+                "protocol": "dokodemo-door",
+                "settings": {
+                    "address": "1.1.1.1",
+                    "network": "tcp,udp",
+                    "port": 53
+                },
+                "tag": "dns-in"
+            }
+        ],
+        "outbounds": [
+            {
+                "protocol": "wireguard",
+                "settings": {
+                    "address": [
+                        "172.16.0.2/32",
+                        "2606:4700:0000:0000:0000:0000:0000:0001/128"
+                    ],
+                    "mtu": 1280,
+                    "peers": [
+                        {
+                            "endpoint": "engage.cloudflareclient.com:2408",
+                            "publicKey": "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB=",
+                            "keepAlive": 5
+                        }
+                    ],
+                    "reserved": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "secretKey": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
+                },
+                "tag": "proxy-1"
+            },
+            {
+                "protocol": "wireguard",
+                "settings": {
+                    "address": [
+                        "172.16.0.2/32",
+                        "2606:4700:0000:0000:0000:0000:0000:0001/128"
+                    ],
+                    "mtu": 1280,
+                    "peers": [
+                        {
+                            "endpoint": "162.159.192.1:2408",
+                            "publicKey": "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB=",
+                            "keepAlive": 5
+                        }
+                    ],
+                    "reserved": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "secretKey": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
+                },
+                "tag": "proxy-2"
+            },
+            {
+                "protocol": "dns",
+                "settings": {},
+                "tag": "dns-out"
+            },
+            {
+                "protocol": "freedom",
+                "settings": {
+                    "domainStrategy": "UseIP"
+                },
+                "tag": "direct"
+            },
+            {
+                "protocol": "blackhole",
+                "settings": {
+                    "response": {
+                        "type": "http"
+                    }
+                },
+                "tag": "block"
+            }
+        ],
+        "routing": {
+            "domainStrategy": "IPIfNonMatch",
+            "rules": [
+                {
+                    "inboundTag": [
+                        "mixed-in"
+                    ],
+                    "port": 53,
+                    "outboundTag": "dns-out",
+                    "type": "field"
+                },
+                {
+                    "inboundTag": [
+                        "dns-in"
+                    ],
+                    "outboundTag": "dns-out",
+                    "type": "field"
+                },
+                {
+                    "inboundTag": [
+                        "remote-dns"
+                    ],
+                    "balancerTag": "all-proxies",
+                    "type": "field"
+                },
+                {
+                    "inboundTag": [
+                        "dns"
+                    ],
+                    "outboundTag": "direct",
+                    "type": "field"
+                },
+                {
+                    "domain": [
+                        "geosite:private"
+                    ],
+                    "outboundTag": "direct",
+                    "type": "field"
+                },
+                {
+                    "ip": [
+                        "geoip:private"
+                    ],
+                    "outboundTag": "direct",
+                    "type": "field"
+                },
+                {
+                    "network": "tcp,udp",
+                    "balancerTag": "all-proxies",
+                    "type": "field"
+                }
+            ],
+            "balancers": [
+                {
+                    "tag": "all-proxies",
+                    "selector": [
+                        "proxy"
+                    ],
+                    "strategy": {
+                        "type": "leastPing"
+                    }
+                }
+            ]
+        },
+        "observatory": {
+            "subjectSelector": [
+                "proxy"
+            ],
+            "probeUrl": "https://www.gstatic.com/generate_204",
+            "probeInterval": "30s",
+            "enableConcurrency": true
+        },
+        "policy": {
+            "levels": {
+                "0": {
+                    "connIdle": 300,
+                    "handshake": 4,
+                    "uplinkOnly": 1,
+                    "downlinkOnly": 1
+                }
+            },
+            "system": {
+                "statsOutboundUplink": true,
+                "statsOutboundDownlink": true
+            }
+        },
+        "stats": {}
+    },
+    {
+        "remarks": "💮 WoW - Best Ping 🚀",
+        "log": {
+            "loglevel": "warning"
+        },
+        "dns": {
+            "servers": [
+                {
+                    "address": "1.1.1.1",
+                    "tag": "remote-dns"
+                },
+                {
+                    "address": "8.8.8.8",
+                    "domains": [
+                        "full:engage.cloudflareclient.com"
+                    ],
+                    "skipFallback": true
+                }
+            ],
+            "queryStrategy": "UseIPv4",
+            "tag": "dns"
+        },
+        "inbounds": [
+            {
+                "listen": "127.0.0.1",
+                "port": 10808,
+                "protocol": "socks",
+                "settings": {
+                    "auth": "noauth",
+                    "udp": true
+                },
+                "sniffing": {
+                    "destOverride": [
+                        "http",
+                        "tls"
+                    ],
+                    "enabled": true,
+                    "routeOnly": true
+                },
+                "tag": "mixed-in"
+            },
+            {
+                "listen": "127.0.0.1",
+                "port": 10853,
+                "protocol": "dokodemo-door",
+                "settings": {
+                    "address": "1.1.1.1",
+                    "network": "tcp,udp",
+                    "port": 53
+                },
+                "tag": "dns-in"
+            }
+        ],
+        "outbounds": [
+            {
+                "protocol": "wireguard",
+                "settings": {
+                    "address": [
+                        "172.16.0.2/32",
+                        "2606:4700:0000:0000:0000:0000:0000:0002/128"
+                    ],
+                    "mtu": 1280,
+                    "peers": [
+                        {
+                            "endpoint": "162.159.192.1:2408",
+                            "publicKey": "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB=",
+                            "keepAlive": 5
+                        }
+                    ],
+                    "reserved": [
+                        4,
+                        16,
+                        65
+                    ],
+                    "secretKey": "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC="
+                },
+                "streamSettings": {
+                    "sockopt": {
+                        "dialerProxy": "proxy-1"
+                    }
+                },
+                "tag": "chain-1"
+            },
+            {
+                "protocol": "wireguard",
+                "settings": {
+                    "address": [
+                        "172.16.0.2/32",
+                        "2606:4700:0000:0000:0000:0000:0000:0002/128"
+                    ],
+                    "mtu": 1280,
+                    "peers": [
+                        {
+                            "endpoint": "162.159.192.1:2408",
+                            "publicKey": "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB=",
+                            "keepAlive": 5
+                        }
+                    ],
+                    "reserved": [
+                        4,
+                        16,
+                        65
+                    ],
+                    "secretKey": "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC="
+                },
+                "streamSettings": {
+                    "sockopt": {
+                        "dialerProxy": "proxy-2"
+                    }
+                },
+                "tag": "chain-2"
+            },
+            {
+                "protocol": "wireguard",
+                "settings": {
+                    "address": [
+                        "172.16.0.2/32",
+                        "2606:4700:0000:0000:0000:0000:0000:0001/128"
+                    ],
+                    "mtu": 1280,
+                    "peers": [
+                        {
+                            "endpoint": "engage.cloudflareclient.com:2408",
+                            "publicKey": "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB=",
+                            "keepAlive": 5
+                        }
+                    ],
+                    "reserved": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "secretKey": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
+                },
+                "tag": "proxy-1"
+            },
+            {
+                "protocol": "wireguard",
+                "settings": {
+                    "address": [
+                        "172.16.0.2/32",
+                        "2606:4700:0000:0000:0000:0000:0000:0001/128"
+                    ],
+                    "mtu": 1280,
+                    "peers": [
+                        {
+                            "endpoint": "162.159.192.1:2408",
+                            "publicKey": "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB=",
+                            "keepAlive": 5
+                        }
+                    ],
+                    "reserved": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "secretKey": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
+                },
+                "tag": "proxy-2"
+            },
+            {
+                "protocol": "dns",
+                "settings": {},
+                "tag": "dns-out"
+            },
+            {
+                "protocol": "freedom",
+                "settings": {
+                    "domainStrategy": "UseIP"
+                },
+                "tag": "direct"
+            },
+            {
+                "protocol": "blackhole",
+                "settings": {
+                    "response": {
+                        "type": "http"
+                    }
+                },
+                "tag": "block"
+            }
+        ],
+        "routing": {
+            "domainStrategy": "IPIfNonMatch",
+            "rules": [
+                {
+                    "inboundTag": [
+                        "mixed-in"
+                    ],
+                    "port": 53,
+                    "outboundTag": "dns-out",
+                    "type": "field"
+                },
+                {
+                    "inboundTag": [
+                        "dns-in"
+                    ],
+                    "outboundTag": "dns-out",
+                    "type": "field"
+                },
+                {
+                    "inboundTag": [
+                        "remote-dns"
+                    ],
+                    "balancerTag": "all-proxies",
+                    "type": "field"
+                },
+                {
+                    "inboundTag": [
+                        "dns"
+                    ],
+                    "outboundTag": "direct",
+                    "type": "field"
+                },
+                {
+                    "domain": [
+                        "geosite:private"
+                    ],
+                    "outboundTag": "direct",
+                    "type": "field"
+                },
+                {
+                    "ip": [
+                        "geoip:private"
+                    ],
+                    "outboundTag": "direct",
+                    "type": "field"
+                },
+                {
+                    "network": "tcp,udp",
+                    "balancerTag": "all-chains",
+                    "type": "field"
+                }
+            ],
+            "balancers": [
+                {
+                    "tag": "all-proxies",
+                    "selector": [
+                        "proxy"
+                    ],
+                    "strategy": {
+                        "type": "leastPing"
+                    }
+                },
+                {
+                    "tag": "all-chains",
+                    "selector": [
+                        "chain"
+                    ],
+                    "strategy": {
+                        "type": "leastPing"
+                    }
+                }
+            ]
+        },
+        "observatory": {
+            "subjectSelector": [
+                "chain",
+                "proxy"
+            ],
+            "probeUrl": "https://www.gstatic.com/generate_204",
+            "probeInterval": "30s",
+            "enableConcurrency": true
+        },
+        "policy": {
+            "levels": {
+                "0": {
+                    "connIdle": 300,
+                    "handshake": 4,
+                    "uplinkOnly": 1,
+                    "downlinkOnly": 1
+                }
+            },
+            "system": {
+                "statsOutboundUplink": true,
+                "statsOutboundDownlink": true
+            }
+        },
+        "stats": {}
+    }
+]
