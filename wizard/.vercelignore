@@ -1,0 +1,5 @@
+qa/
+tests/
+README.md
+.env.example
+scripts-verify-artifact.mjs

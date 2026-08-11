@@ -1,0 +1,44 @@
+{
+  "product": "RayZen Panel",
+  "version": "1.1.0",
+  "buildMode": "production",
+  "minified": true,
+  "sourceMaps": false,
+  "toolchain": {
+    "esbuild": "0.28.1"
+  },
+  "workerSha256": "05d057f70311c2898e5f9855bb684f0ddaf1e49ddb7c4d76ac238cee3579f4e7",
+  "setupBuildMarker": "rayzen-setup-6df08e2d78a47eb1",
+  "pages": {
+    "login": {
+      "sourcefile": "src/assets/login/script.js",
+      "sourceSha256": "13c526f15235a0a5c7d6f6507547be76ca8d74d6b8e6057a8ae636e35db7353f",
+      "builtSha256": "334c454ea863bf0e19c20b8920bd2f3956abd00c881eb66b107263aac1c92841",
+      "sourceMap": null
+    },
+    "panel": {
+      "sourcefile": "src/assets/panel/script.js",
+      "sourceSha256": "2b41c67bcfa020138350ca9fe0e999fa56896f3c5581b295adde63f09f497a6c",
+      "builtSha256": "e10c75f544af366fee7f2568fab1584612adac59c366176b11095fdcfc07dc7e",
+      "sourceMap": null
+    },
+    "probe": {
+      "sourcefile": "src/assets/probe/script.js",
+      "sourceSha256": "a5a5729dd7e7c03050bff2c3dae4ab16a6d82e7feab6e785d9502402c071d12d",
+      "builtSha256": "64a0f209ad1f0c3cecf264aa4ebc5edc85116c9179f19e41855f2ce673116506",
+      "sourceMap": null
+    },
+    "proxy-ip": {
+      "sourcefile": "src/assets/proxy-ip/script.js",
+      "sourceSha256": "d86941b75e9d40cc5051ae1ab576214690e259b70356ced26937e80cba2a0354",
+      "builtSha256": "40f9369c1702cfd3edbaf5d30b730ce0b2b08f6d63851a44cacd7e71c95f9357",
+      "sourceMap": null
+    },
+    "setup": {
+      "sourcefile": "src/assets/setup/script.js",
+      "sourceSha256": "6df08e2d78a47eb19e61ad2b56210dfe1b576fa9adb5537c02374ec6d33fcd7f",
+      "builtSha256": "8f2ab3f2df94f6f5c0d853deb65a7d6fb327cd72a933e7ca016a00b08afb6957",
+      "sourceMap": null
+    }
+  }
+}

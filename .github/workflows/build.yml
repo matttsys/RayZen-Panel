@@ -1,0 +1,41 @@
+name: Panel CI
+permissions:
+  contents: read
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - name: Type and unit checks
+        run: npm run check && npm test
+      - name: Documentation
+        run: npm run check:doc-links
+      - name: Build credential-free Worker
+        run: npm run build
+      - name: Synchronize Wizard artifact
+        run: npm run release:sync-wizard
+      - name: Wizard tests
+        run: npm --prefix wizard test
+      - name: TDZ and module safety
+        run: npm run test:module-cycles && npm run test:lexical-tdz && npm run test:setup-tdz
+      - name: Deployment flow
+        run: npm run test:deploy-flow && npm run test:pbkdf2
+      - name: Bundle budget
+        run: npm run size
+      - name: Validate Cloudflare deployment config
+        run: npm run deploy:check
+      - uses: actions/upload-artifact@v4
+        with:
+          name: rayzen-worker
+          path: dist/worker.js
+          if-no-files-found: error

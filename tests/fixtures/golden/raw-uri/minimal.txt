@@ -1,0 +1,12 @@
+--- headers ---
+content-type: text/plain; charset=utf-8
+profile-title: base64:8J+SriBSYXlaZW4gUmF3
+cache-control: no-store, no-cache, must-revalidate, max-age=0
+pragma: no-cache
+expires: 0
+dns: https://8.8.8.8/dns-query
+--- body ---
+vless://00000000-0000-4000-8000-000000000001@rayzen-test.workers.dev:443?encryption=none&host=rayzen-test.workers.dev&type=ws&security=tls&path=%2Fvl%2FebauBDBHDf5jvAWnH6hZmcIJdR%3Fed%3D2560&sni=RAyZeN-tEst.WoRkerS.dev&fp=chrome&alpn=http%2F1.1#1%E2%80%A2VLESS%E2%80%A2Domain%20:%20443%20%F0%9F%92%AE
+vless://00000000-0000-4000-8000-000000000001@203.0.113.10:443?encryption=none&host=rayzen-test.workers.dev&type=ws&security=tls&path=%2Fvl%2Fz7X0zlXx7aKIJvxWoTOYZ2GahOmJzs%3Fed%3D2560&sni=raYzeN-TEst.worKErs.dEV&fp=chrome&alpn=http%2F1.1#2%E2%80%A2VLESS%E2%80%A2IPv4%20:%20443%20%F0%9F%92%AE
+vless://00000000-0000-4000-8000-000000000001@203.0.113.11:443?encryption=none&host=rayzen-test.workers.dev&type=ws&security=tls&path=%2Fvl%2F28i6h8SSjrKJK2yTGEZhLNWknIupzRH%3Fed%3D2560&sni=RayzEn-test.WoRkeRS.DEV&fp=chrome&alpn=http%2F1.1#3%E2%80%A2VLESS%E2%80%A2IPv4%20:%20443%20%F0%9F%92%AE
+

@@ -1,0 +1,74 @@
+{
+    // Deployment configuration for the RayZen edge application.
+    //
+    // This file has two jobs and they pull in different directions.
+    //
+    // The Deploy to Cloudflare button reads it to work out what to provision. When
+    // someone clicks the button in the README, Cloudflare clones the repository into
+    // their account, reads this file, creates the resources it declares, runs the
+    // build, and deploys. So everything a fresh deployment needs has to be declared
+    // here, and nothing may require a value only Matin could know.
+    //
+    // Wrangler also reads this file. The supported manual command is `npm run deploy`,
+    // which overrides the fallback name with a fresh cryptographically generated name.
+    //
+    // The identity a deployment needs (panel path, VLESS UUID, Trojan password,
+    // sign-in email) is deliberately absent. It is resolved at runtime and stored in
+    // the KV namespace below: see src/settings/identity.ts. That is what lets one
+    // committed config serve every deployment without ever carrying a credential.
+    "$schema": "node_modules/wrangler/config-schema.json",
+
+    // Safe schema fallback only. The installer and `npm run deploy` override it with
+    // a unique name from scripts/worker-name.mjs. The forbidden deployment term is
+    // rejected for generated and custom names before any upload starts.
+    "name": "rayzen-edge",
+    "main": "dist/worker.js",
+    "compatibility_date": "2026-08-06",
+
+    // `nodejs_compat` is load-bearing, not legacy. `src/protocols/trojan.ts` hashes
+    // the Trojan password with `node:crypto`'s `createHash`, and `src/api/warp.ts`
+    // generates x25519 keypairs with `generateKeyPairSync`. Dropping the flag breaks
+    // Trojan authentication and WARP account renewal at runtime, not at build time.
+    "compatibility_flags": ["nodejs_compat"],
+
+    // The build emits a complete ES module with every asset embedded in its prelude:
+    // no asset directory, no external import, and the only bare specifiers left are
+    // `node:crypto` and `cloudflare:sockets`, both provided by the runtime.
+    //
+    // So wrangler uploads the file as it is. Letting it re-bundle inflated the upload
+    // from 378 KB to 434 KB, because esbuild rewrites every function with a `__name`
+    // wrapper to preserve names through its own minification. That is 56 KB the size
+    // budget never measured, and it would mean the deployed script is not the artifact
+    // `npm run size` checked.
+    "no_bundle": true,
+    "rules": [],
+    "kv_namespaces": [
+        {
+            // The application's only storage. It holds the settings, the panel password, the
+            // session signing secret, the WARP accounts and this deployment's
+            // identity.
+            //
+            // The binding name must stay `kv`, lowercase: `Env` declares it that way
+            // (src/types/global.d.ts) and src/storage/storage.ts is the only reader. A
+            // namespace bound under any other name leaves the application unable to save or
+            // even to work out its own panel URL.
+            //
+            // The Deploy to Cloudflare button creates a namespace and rewrites the id
+            // below in the user's own copy of this file. Deploying by hand, replace it:
+            //
+            //   npx wrangler kv namespace create rayzen
+            //
+            // Never share a namespace between two deployments. They use the same keys,
+            // so the second overwrites the first one's settings.
+            "binding": "kv",
+            "id": "0000000000000000000000000000000f"
+        }
+    ],
+    "observability": {
+        // Off by default. `src/protocols/vless.ts` and `src/protocols/trojan.ts` log
+        // per-connection information, so enabling Workers Logs on a live deployment
+        // records where users connected. Enable it deliberately and temporarily, for
+        // debugging, not as a default.
+        "enabled": false
+    }
+}
