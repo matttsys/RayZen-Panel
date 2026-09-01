@@ -1,0 +1,479 @@
+--- headers ---
+content-type: application/json
+content-disposition: attachment; filename=rayzen-normal-sing-box.json
+cache-control: no-store, no-cache, must-revalidate, max-age=0
+pragma: no-cache
+expires: 0
+--- body ---
+{
+    "log": {
+        "disabled": false,
+        "level": "warn",
+        "timestamp": true
+    },
+    "dns": {
+        "servers": [
+            {
+                "type": "https",
+                "server": "8.8.8.8",
+                "detour": "✅ Selector",
+                "tag": "dns-remote"
+            },
+            {
+                "type": "udp",
+                "server": "8.8.8.8",
+                "tag": "dns-direct"
+            }
+        ],
+        "rules": [
+            {
+                "clash_mode": "Direct",
+                "server": "dns-direct"
+            },
+            {
+                "clash_mode": "Global",
+                "server": "dns-remote"
+            }
+        ],
+        "strategy": "ipv4_only",
+        "independent_cache": true
+    },
+    "inbounds": [
+        {
+            "type": "tun",
+            "tag": "tun-in",
+            "address": [
+                "172.19.0.1/28"
+            ],
+            "mtu": 9000,
+            "auto_route": true,
+            "strict_route": true,
+            "stack": "mixed"
+        },
+        {
+            "type": "mixed",
+            "tag": "mixed-in",
+            "listen": "127.0.0.1",
+            "listen_port": 2080
+        }
+    ],
+    "outbounds": [
+        {
+            "tag": "1•VLESS•Domain : 443 💮",
+            "type": "vless",
+            "server": "rayzen-test.workers.dev",
+            "server_port": 443,
+            "tcp_fast_open": false,
+            "uuid": "00000000-0000-4000-8000-000000000001",
+            "packet_encoding": "",
+            "network": "tcp",
+            "tls": {
+                "enabled": true,
+                "server_name": "RAyZeN-tEst.WoRkerS.dev",
+                "record_fragment": false,
+                "insecure": false,
+                "alpn": [
+                    "http/1.1"
+                ],
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "chrome"
+                }
+            },
+            "transport": {
+                "type": "ws",
+                "path": "/vl/ebauBDBHDf5jvAWnH6hZmcIJdR",
+                "max_early_data": 2560,
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "headers": {
+                    "Host": "rayzen-test.workers.dev"
+                }
+            },
+            "domain_resolver": "dns-direct"
+        },
+        {
+            "tag": "2•VLESS•IPv4 : 443 💮",
+            "type": "vless",
+            "server": "203.0.113.10",
+            "server_port": 443,
+            "tcp_fast_open": false,
+            "uuid": "00000000-0000-4000-8000-000000000001",
+            "packet_encoding": "",
+            "network": "tcp",
+            "tls": {
+                "enabled": true,
+                "server_name": "raYzeN-TEst.worKErs.dEV",
+                "record_fragment": false,
+                "insecure": false,
+                "alpn": [
+                    "http/1.1"
+                ],
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "chrome"
+                }
+            },
+            "transport": {
+                "type": "ws",
+                "path": "/vl/z7X0zlXx7aKIJvxWoTOYZ2GahOmJzs",
+                "max_early_data": 2560,
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "headers": {
+                    "Host": "rayzen-test.workers.dev"
+                }
+            }
+        },
+        {
+            "tag": "3•VLESS•IPv4 : 443 💮",
+            "type": "vless",
+            "server": "203.0.113.11",
+            "server_port": 443,
+            "tcp_fast_open": false,
+            "uuid": "00000000-0000-4000-8000-000000000001",
+            "packet_encoding": "",
+            "network": "tcp",
+            "tls": {
+                "enabled": true,
+                "server_name": "RayzEn-test.WoRkeRS.DEV",
+                "record_fragment": false,
+                "insecure": false,
+                "alpn": [
+                    "http/1.1"
+                ],
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "chrome"
+                }
+            },
+            "transport": {
+                "type": "ws",
+                "path": "/vl/28i6h8SSjrKJK2yTGEZhLNWknIupzRH",
+                "max_early_data": 2560,
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "headers": {
+                    "Host": "rayzen-test.workers.dev"
+                }
+            }
+        },
+        {
+            "tag": "4•VLESS•Clean IP : 443 💮",
+            "type": "vless",
+            "server": "www.speedtest.net",
+            "server_port": 443,
+            "tcp_fast_open": false,
+            "uuid": "00000000-0000-4000-8000-000000000001",
+            "packet_encoding": "",
+            "network": "tcp",
+            "tls": {
+                "enabled": true,
+                "server_name": "RAyzen-Test.wOrkers.dEV",
+                "record_fragment": false,
+                "insecure": false,
+                "alpn": [
+                    "http/1.1"
+                ],
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "chrome"
+                }
+            },
+            "transport": {
+                "type": "ws",
+                "path": "/vl/t1hgmZrKRW3K7GxCiC77yu29N",
+                "max_early_data": 2560,
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "headers": {
+                    "Host": "rayzen-test.workers.dev"
+                }
+            },
+            "domain_resolver": "dns-direct"
+        },
+        {
+            "tag": "5•VLESS C•Domain : 443 💮",
+            "type": "vless",
+            "server": "cdn.example.com",
+            "server_port": 443,
+            "tcp_fast_open": false,
+            "uuid": "00000000-0000-4000-8000-000000000001",
+            "packet_encoding": "",
+            "network": "tcp",
+            "tls": {
+                "enabled": true,
+                "server_name": "sni.example.com",
+                "record_fragment": false,
+                "insecure": true,
+                "alpn": [
+                    "http/1.1"
+                ],
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "chrome"
+                }
+            },
+            "transport": {
+                "type": "ws",
+                "path": "/vl/jcnBKss0grgII5FcUs8gMNXOP4OwGyZ",
+                "max_early_data": 2560,
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "headers": {
+                    "Host": "host.example.com"
+                }
+            },
+            "domain_resolver": "dns-direct"
+        },
+        {
+            "tag": "1•Trojan•Domain : 443 💮",
+            "type": "trojan",
+            "server": "rayzen-test.workers.dev",
+            "server_port": 443,
+            "tcp_fast_open": false,
+            "password": "test-trojan-password",
+            "network": "tcp",
+            "tls": {
+                "enabled": true,
+                "server_name": "rAYZEn-TeSt.worKeRS.deV",
+                "record_fragment": false,
+                "insecure": false,
+                "alpn": [
+                    "http/1.1"
+                ],
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "chrome"
+                }
+            },
+            "transport": {
+                "type": "ws",
+                "path": "/tr/7V13zGIu0mVgwZqSo8",
+                "max_early_data": 2560,
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "headers": {
+                    "Host": "rayzen-test.workers.dev"
+                }
+            },
+            "domain_resolver": "dns-direct"
+        },
+        {
+            "tag": "2•Trojan•IPv4 : 443 💮",
+            "type": "trojan",
+            "server": "203.0.113.10",
+            "server_port": 443,
+            "tcp_fast_open": false,
+            "password": "test-trojan-password",
+            "network": "tcp",
+            "tls": {
+                "enabled": true,
+                "server_name": "rAYZEN-tEST.wORKerS.DeV",
+                "record_fragment": false,
+                "insecure": false,
+                "alpn": [
+                    "http/1.1"
+                ],
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "chrome"
+                }
+            },
+            "transport": {
+                "type": "ws",
+                "path": "/tr/ndHQTjOYgl81cfLl6LihEptyNujr3TB",
+                "max_early_data": 2560,
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "headers": {
+                    "Host": "rayzen-test.workers.dev"
+                }
+            }
+        },
+        {
+            "tag": "3•Trojan•IPv4 : 443 💮",
+            "type": "trojan",
+            "server": "203.0.113.11",
+            "server_port": 443,
+            "tcp_fast_open": false,
+            "password": "test-trojan-password",
+            "network": "tcp",
+            "tls": {
+                "enabled": true,
+                "server_name": "RaYzEn-test.WoRkErS.DEv",
+                "record_fragment": false,
+                "insecure": false,
+                "alpn": [
+                    "http/1.1"
+                ],
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "chrome"
+                }
+            },
+            "transport": {
+                "type": "ws",
+                "path": "/tr/M4tyMQBsIzaql2KS9r",
+                "max_early_data": 2560,
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "headers": {
+                    "Host": "rayzen-test.workers.dev"
+                }
+            }
+        },
+        {
+            "tag": "4•Trojan•Clean IP : 443 💮",
+            "type": "trojan",
+            "server": "www.speedtest.net",
+            "server_port": 443,
+            "tcp_fast_open": false,
+            "password": "test-trojan-password",
+            "network": "tcp",
+            "tls": {
+                "enabled": true,
+                "server_name": "rAYZEn-TESt.wORkers.DEV",
+                "record_fragment": false,
+                "insecure": false,
+                "alpn": [
+                    "http/1.1"
+                ],
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "chrome"
+                }
+            },
+            "transport": {
+                "type": "ws",
+                "path": "/tr/taipwtkaEnLeqyNAlhJfLXZLxE8AE",
+                "max_early_data": 2560,
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "headers": {
+                    "Host": "rayzen-test.workers.dev"
+                }
+            },
+            "domain_resolver": "dns-direct"
+        },
+        {
+            "tag": "5•Trojan C•Domain : 443 💮",
+            "type": "trojan",
+            "server": "cdn.example.com",
+            "server_port": 443,
+            "tcp_fast_open": false,
+            "password": "test-trojan-password",
+            "network": "tcp",
+            "tls": {
+                "enabled": true,
+                "server_name": "sni.example.com",
+                "record_fragment": false,
+                "insecure": true,
+                "alpn": [
+                    "http/1.1"
+                ],
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "chrome"
+                }
+            },
+            "transport": {
+                "type": "ws",
+                "path": "/tr/WCKtcrux4sRs5jUslIeaZJel",
+                "max_early_data": 2560,
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "headers": {
+                    "Host": "host.example.com"
+                }
+            },
+            "domain_resolver": "dns-direct"
+        },
+        {
+            "type": "selector",
+            "tag": "✅ Selector",
+            "outbounds": [
+                "💮 Best Ping 🚀",
+                "1•VLESS•Domain : 443 💮",
+                "2•VLESS•IPv4 : 443 💮",
+                "3•VLESS•IPv4 : 443 💮",
+                "4•VLESS•Clean IP : 443 💮",
+                "5•VLESS C•Domain : 443 💮",
+                "1•Trojan•Domain : 443 💮",
+                "2•Trojan•IPv4 : 443 💮",
+                "3•Trojan•IPv4 : 443 💮",
+                "4•Trojan•Clean IP : 443 💮",
+                "5•Trojan C•Domain : 443 💮"
+            ],
+            "interrupt_exist_connections": false
+        },
+        {
+            "type": "direct",
+            "tag": "direct",
+            "domain_resolver": "dns-direct"
+        },
+        {
+            "type": "urltest",
+            "tag": "💮 Best Ping 🚀",
+            "outbounds": [
+                "1•VLESS•Domain : 443 💮",
+                "2•VLESS•IPv4 : 443 💮",
+                "3•VLESS•IPv4 : 443 💮",
+                "4•VLESS•Clean IP : 443 💮",
+                "5•VLESS C•Domain : 443 💮",
+                "1•Trojan•Domain : 443 💮",
+                "2•Trojan•IPv4 : 443 💮",
+                "3•Trojan•IPv4 : 443 💮",
+                "4•Trojan•Clean IP : 443 💮",
+                "5•Trojan C•Domain : 443 💮"
+            ],
+            "url": "https://www.gstatic.com/generate_204",
+            "interrupt_exist_connections": false,
+            "interval": "30s"
+        }
+    ],
+    "route": {
+        "rules": [
+            {
+                "ip_cidr": "172.19.0.2",
+                "action": "hijack-dns"
+            },
+            {
+                "clash_mode": "Direct",
+                "outbound": "direct"
+            },
+            {
+                "clash_mode": "Global",
+                "outbound": "✅ Selector"
+            },
+            {
+                "action": "sniff"
+            },
+            {
+                "protocol": "dns",
+                "action": "hijack-dns"
+            },
+            {
+                "ip_is_private": true,
+                "outbound": "direct"
+            },
+            {
+                "network": "udp",
+                "action": "reject"
+            }
+        ],
+        "auto_detect_interface": true,
+        "final": "✅ Selector"
+    },
+    "ntp": {
+        "enabled": true,
+        "server": "time.cloudflare.com",
+        "server_port": 123,
+        "domain_resolver": "dns-direct",
+        "interval": "30m",
+        "write_to_system": false
+    },
+    "experimental": {
+        "cache_file": {
+            "enabled": true,
+            "store_fakeip": true
+        },
+        "clash_api": {
+            "external_controller": "127.0.0.1:9090",
+            "external_ui": "ui",
+            "default_mode": "Rule",
+            "external_ui_download_url": "https://github.com/MetaCubeX/metacubexd/archive/refs/heads/gh-pages.zip",
+            "external_ui_download_detour": "direct"
+        }
+    }
+}

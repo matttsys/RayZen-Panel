@@ -1,0 +1,568 @@
+--- headers ---
+content-type: application/json
+content-disposition: attachment; filename=rayzen-normal-clash.json
+cache-control: no-store, no-cache, must-revalidate, max-age=0
+pragma: no-cache
+expires: 0
+--- body ---
+{
+    "mixed-port": 7890,
+    "ipv6": true,
+    "allow-lan": true,
+    "unified-delay": false,
+    "log-level": "warning",
+    "mode": "rule",
+    "disable-keep-alive": false,
+    "keep-alive-idle": 10,
+    "keep-alive-interval": 15,
+    "tcp-concurrent": true,
+    "geo-auto-update": true,
+    "geo-update-interval": 168,
+    "external-controller": "127.0.0.1:9090",
+    "external-controller-cors": {
+        "allow-origins": [
+            "*"
+        ],
+        "allow-private-network": true
+    },
+    "external-ui": "ui",
+    "external-ui-url": "https://github.com/MetaCubeX/metacubexd/archive/refs/heads/gh-pages.zip",
+    "profile": {
+        "store-selected": true,
+        "store-fake-ip": true
+    },
+    "dns": {
+        "enable": true,
+        "respect-rules": true,
+        "use-system-hosts": false,
+        "listen": "0.0.0.0:1053",
+        "ipv6": true,
+        "hosts": {
+            "rule-set:malware": "rcode://refused",
+            "rule-set:phishing": "rcode://refused",
+            "rule-set:cryptominers": "rcode://refused",
+            "rule-set:category-ads-all": "rcode://refused",
+            "rule-set:nsfw": "rcode://refused",
+            "+.block.example.com": "rcode://refused"
+        },
+        "nameserver": [
+            "https://8.8.8.8/dns-query#✅ Selector"
+        ],
+        "proxy-server-nameserver": [
+            "8.8.8.8#DIRECT"
+        ],
+        "direct-nameserver": [
+            "8.8.8.8#DIRECT"
+        ],
+        "direct-nameserver-follow-policy": true,
+        "nameserver-policy": {
+            "rule-set:openai": "178.22.122.100#DIRECT",
+            "+.sanction.example.com": "178.22.122.100#DIRECT",
+            "rule-set:ir": "8.8.8.8#DIRECT",
+            "rule-set:cn": "8.8.8.8#DIRECT",
+            "rule-set:ru": "8.8.8.8#DIRECT",
+            "+.bypass.example.com": "8.8.8.8#DIRECT"
+        },
+        "enhanced-mode": "fake-ip",
+        "fake-ip-range": "198.18.0.1/16",
+        "fake-ip-filter-mode": "blacklist",
+        "fake-ip-filter": [
+            "+.lan",
+            "+.local"
+        ]
+    },
+    "tun": {
+        "enable": true,
+        "stack": "mixed",
+        "auto-route": true,
+        "strict-route": true,
+        "auto-detect-interface": true,
+        "dns-hijack": [
+            "any:53",
+            "tcp://any:53"
+        ],
+        "mtu": 9000
+    },
+    "sniffer": {
+        "enable": true,
+        "force-dns-mapping": true,
+        "parse-pure-ip": true,
+        "override-destination": true,
+        "sniff": {
+            "HTTP": {
+                "ports": [
+                    80,
+                    8080,
+                    8880,
+                    2052,
+                    2082,
+                    2086,
+                    2095
+                ]
+            },
+            "TLS": {
+                "ports": [
+                    443,
+                    8443,
+                    2053,
+                    2083,
+                    2087,
+                    2096
+                ]
+            }
+        }
+    },
+    "proxies": [
+        {
+            "name": "1•VLESS•Domain : 443 💮",
+            "type": "vless",
+            "server": "rayzen-test.workers.dev",
+            "port": 443,
+            "ip-version": "ipv4-prefer",
+            "tfo": true,
+            "udp": false,
+            "uuid": "00000000-0000-4000-8000-000000000001",
+            "packet-encoding": "",
+            "encryption": "",
+            "tls": true,
+            "servername": "RAyZeN-tEst.WoRkerS.dev",
+            "client-fingerprint": "chrome",
+            "skip-cert-verify": false,
+            "alpn": [
+                "http/1.1"
+            ],
+            "network": "ws",
+            "ws-opts": {
+                "path": "/vl/ebauBDBHDf5jvAWnH6hZmcIJdR",
+                "max-early-data": 2560,
+                "early-data-header-name": "Sec-WebSocket-Protocol",
+                "headers": {
+                    "Host": "rayzen-test.workers.dev"
+                }
+            }
+        },
+        {
+            "name": "2•VLESS•IPv4 : 443 💮",
+            "type": "vless",
+            "server": "203.0.113.10",
+            "port": 443,
+            "ip-version": "ipv4-prefer",
+            "tfo": true,
+            "udp": false,
+            "uuid": "00000000-0000-4000-8000-000000000001",
+            "packet-encoding": "",
+            "encryption": "",
+            "tls": true,
+            "servername": "raYzeN-TEst.worKErs.dEV",
+            "client-fingerprint": "chrome",
+            "skip-cert-verify": false,
+            "alpn": [
+                "http/1.1"
+            ],
+            "network": "ws",
+            "ws-opts": {
+                "path": "/vl/z7X0zlXx7aKIJvxWoTOYZ2GahOmJzs",
+                "max-early-data": 2560,
+                "early-data-header-name": "Sec-WebSocket-Protocol",
+                "headers": {
+                    "Host": "rayzen-test.workers.dev"
+                }
+            }
+        },
+        {
+            "name": "3•VLESS•IPv4 : 443 💮",
+            "type": "vless",
+            "server": "203.0.113.11",
+            "port": 443,
+            "ip-version": "ipv4-prefer",
+            "tfo": true,
+            "udp": false,
+            "uuid": "00000000-0000-4000-8000-000000000001",
+            "packet-encoding": "",
+            "encryption": "",
+            "tls": true,
+            "servername": "RayzEn-test.WoRkeRS.DEV",
+            "client-fingerprint": "chrome",
+            "skip-cert-verify": false,
+            "alpn": [
+                "http/1.1"
+            ],
+            "network": "ws",
+            "ws-opts": {
+                "path": "/vl/28i6h8SSjrKJK2yTGEZhLNWknIupzRH",
+                "max-early-data": 2560,
+                "early-data-header-name": "Sec-WebSocket-Protocol",
+                "headers": {
+                    "Host": "rayzen-test.workers.dev"
+                }
+            }
+        },
+        {
+            "name": "4•VLESS•IPv6 : 443 💮",
+            "type": "vless",
+            "server": "2001:db8::10",
+            "port": 443,
+            "ip-version": "ipv4-prefer",
+            "tfo": true,
+            "udp": false,
+            "uuid": "00000000-0000-4000-8000-000000000001",
+            "packet-encoding": "",
+            "encryption": "",
+            "tls": true,
+            "servername": "RAyzen-Test.wOrkers.dEV",
+            "client-fingerprint": "chrome",
+            "skip-cert-verify": false,
+            "alpn": [
+                "http/1.1"
+            ],
+            "network": "ws",
+            "ws-opts": {
+                "path": "/vl/t1hgmZrKRW3K7GxCiC77yu29N",
+                "max-early-data": 2560,
+                "early-data-header-name": "Sec-WebSocket-Protocol",
+                "headers": {
+                    "Host": "rayzen-test.workers.dev"
+                }
+            }
+        },
+        {
+            "name": "5•VLESS•Clean IP : 443 💮",
+            "type": "vless",
+            "server": "www.speedtest.net",
+            "port": 443,
+            "ip-version": "ipv4-prefer",
+            "tfo": true,
+            "udp": false,
+            "uuid": "00000000-0000-4000-8000-000000000001",
+            "packet-encoding": "",
+            "encryption": "",
+            "tls": true,
+            "servername": "raYzEN-test.WOrKERs.dEV",
+            "client-fingerprint": "chrome",
+            "skip-cert-verify": false,
+            "alpn": [
+                "http/1.1"
+            ],
+            "network": "ws",
+            "ws-opts": {
+                "path": "/vl/OP4OwGyZkeEKepHSxNmIu7",
+                "max-early-data": 2560,
+                "early-data-header-name": "Sec-WebSocket-Protocol",
+                "headers": {
+                    "Host": "rayzen-test.workers.dev"
+                }
+            }
+        },
+        {
+            "name": "1•Trojan•Domain : 443 💮",
+            "type": "trojan",
+            "server": "rayzen-test.workers.dev",
+            "port": 443,
+            "ip-version": "ipv4-prefer",
+            "tfo": true,
+            "udp": false,
+            "password": "test-trojan-password",
+            "tls": true,
+            "sni": "rAyZEN-tESt.worKErs.Dev",
+            "client-fingerprint": "chrome",
+            "skip-cert-verify": false,
+            "alpn": [
+                "http/1.1"
+            ],
+            "network": "ws",
+            "ws-opts": {
+                "path": "/tr/qSo89JETIEbiYQb2rRPS47K",
+                "max-early-data": 2560,
+                "early-data-header-name": "Sec-WebSocket-Protocol",
+                "headers": {
+                    "Host": "rayzen-test.workers.dev"
+                }
+            }
+        },
+        {
+            "name": "2•Trojan•IPv4 : 443 💮",
+            "type": "trojan",
+            "server": "203.0.113.10",
+            "port": 443,
+            "ip-version": "ipv4-prefer",
+            "tfo": true,
+            "udp": false,
+            "password": "test-trojan-password",
+            "tls": true,
+            "sni": "RAyZen-TESt.WorkeRs.deV",
+            "client-fingerprint": "chrome",
+            "skip-cert-verify": false,
+            "alpn": [
+                "http/1.1"
+            ],
+            "network": "ws",
+            "ws-opts": {
+                "path": "/tr/hEptyNujr3TBHyZnNvAlsj7sR",
+                "max-early-data": 2560,
+                "early-data-header-name": "Sec-WebSocket-Protocol",
+                "headers": {
+                    "Host": "rayzen-test.workers.dev"
+                }
+            }
+        },
+        {
+            "name": "3•Trojan•IPv4 : 443 💮",
+            "type": "trojan",
+            "server": "203.0.113.11",
+            "port": 443,
+            "ip-version": "ipv4-prefer",
+            "tfo": true,
+            "udp": false,
+            "password": "test-trojan-password",
+            "tls": true,
+            "sni": "rAyZeN-TEsT.worKERs.dEv",
+            "client-fingerprint": "chrome",
+            "skip-cert-verify": false,
+            "alpn": [
+                "http/1.1"
+            ],
+            "network": "ws",
+            "ws-opts": {
+                "path": "/tr/2KS9rqPHSI5OSRY62pEXmupv2Q",
+                "max-early-data": 2560,
+                "early-data-header-name": "Sec-WebSocket-Protocol",
+                "headers": {
+                    "Host": "rayzen-test.workers.dev"
+                }
+            }
+        },
+        {
+            "name": "4•Trojan•IPv6 : 443 💮",
+            "type": "trojan",
+            "server": "2001:db8::10",
+            "port": 443,
+            "ip-version": "ipv4-prefer",
+            "tfo": true,
+            "udp": false,
+            "password": "test-trojan-password",
+            "tls": true,
+            "sni": "RAyzEn-tesT.wORkeRS.dEv",
+            "client-fingerprint": "chrome",
+            "skip-cert-verify": false,
+            "alpn": [
+                "http/1.1"
+            ],
+            "network": "ws",
+            "ws-opts": {
+                "path": "/tr/XZLxE8AEfWCKtcrux4s",
+                "max-early-data": 2560,
+                "early-data-header-name": "Sec-WebSocket-Protocol",
+                "headers": {
+                    "Host": "rayzen-test.workers.dev"
+                }
+            }
+        },
+        {
+            "name": "5•Trojan•Clean IP : 443 💮",
+            "type": "trojan",
+            "server": "www.speedtest.net",
+            "port": 443,
+            "ip-version": "ipv4-prefer",
+            "tfo": true,
+            "udp": false,
+            "password": "test-trojan-password",
+            "tls": true,
+            "sni": "RayzEn-TEST.WorkeRS.dEV",
+            "client-fingerprint": "chrome",
+            "skip-cert-verify": false,
+            "alpn": [
+                "http/1.1"
+            ],
+            "network": "ws",
+            "ws-opts": {
+                "path": "/tr/agcyN31Cus20U1Rwe2F217",
+                "max-early-data": 2560,
+                "early-data-header-name": "Sec-WebSocket-Protocol",
+                "headers": {
+                    "Host": "rayzen-test.workers.dev"
+                }
+            }
+        }
+    ],
+    "proxy-groups": [
+        {
+            "name": "✅ Selector",
+            "type": "select",
+            "proxies": [
+                "💮 Best Ping 🚀",
+                "1•VLESS•Domain : 443 💮",
+                "2•VLESS•IPv4 : 443 💮",
+                "3•VLESS•IPv4 : 443 💮",
+                "4•VLESS•IPv6 : 443 💮",
+                "5•VLESS•Clean IP : 443 💮",
+                "1•Trojan•Domain : 443 💮",
+                "2•Trojan•IPv4 : 443 💮",
+                "3•Trojan•IPv4 : 443 💮",
+                "4•Trojan•IPv6 : 443 💮",
+                "5•Trojan•Clean IP : 443 💮"
+            ]
+        },
+        {
+            "name": "💮 Best Ping 🚀",
+            "type": "url-test",
+            "proxies": [
+                "1•VLESS•Domain : 443 💮",
+                "2•VLESS•IPv4 : 443 💮",
+                "3•VLESS•IPv4 : 443 💮",
+                "4•VLESS•IPv6 : 443 💮",
+                "5•VLESS•Clean IP : 443 💮",
+                "1•Trojan•Domain : 443 💮",
+                "2•Trojan•IPv4 : 443 💮",
+                "3•Trojan•IPv4 : 443 💮",
+                "4•Trojan•IPv6 : 443 💮",
+                "5•Trojan•Clean IP : 443 💮"
+            ],
+            "url": "https://www.gstatic.com/generate_204",
+            "interval": 30,
+            "tolerance": 50
+        }
+    ],
+    "rule-providers": {
+        "malware": {
+            "type": "http",
+            "format": "text",
+            "behavior": "domain",
+            "path": "./ruleset/malware.txt",
+            "interval": 86400,
+            "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-clash-rules/release/malware.txt"
+        },
+        "malware-cidr": {
+            "type": "http",
+            "format": "text",
+            "behavior": "ipcidr",
+            "path": "./ruleset/malware-cidr.txt",
+            "interval": 86400,
+            "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-clash-rules/release/malware-ip.txt"
+        },
+        "phishing": {
+            "type": "http",
+            "format": "text",
+            "behavior": "domain",
+            "path": "./ruleset/phishing.txt",
+            "interval": 86400,
+            "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-clash-rules/release/phishing.txt"
+        },
+        "phishing-cidr": {
+            "type": "http",
+            "format": "text",
+            "behavior": "ipcidr",
+            "path": "./ruleset/phishing-cidr.txt",
+            "interval": 86400,
+            "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-clash-rules/release/phishing-ip.txt"
+        },
+        "cryptominers": {
+            "type": "http",
+            "format": "text",
+            "behavior": "domain",
+            "path": "./ruleset/cryptominers.txt",
+            "interval": 86400,
+            "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-clash-rules/release/cryptominers.txt"
+        },
+        "category-ads-all": {
+            "type": "http",
+            "format": "text",
+            "behavior": "domain",
+            "path": "./ruleset/category-ads-all.txt",
+            "interval": 86400,
+            "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-clash-rules/release/category-ads-all.txt"
+        },
+        "nsfw": {
+            "type": "http",
+            "format": "text",
+            "behavior": "domain",
+            "path": "./ruleset/nsfw.txt",
+            "interval": 86400,
+            "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-clash-rules/release/nsfw.txt"
+        },
+        "ir": {
+            "type": "http",
+            "format": "text",
+            "behavior": "domain",
+            "path": "./ruleset/ir.txt",
+            "interval": 86400,
+            "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-clash-rules/release/ir.txt"
+        },
+        "ir-cidr": {
+            "type": "http",
+            "format": "text",
+            "behavior": "ipcidr",
+            "path": "./ruleset/ir-cidr.txt",
+            "interval": 86400,
+            "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-clash-rules/release/ircidr.txt"
+        },
+        "cn": {
+            "type": "http",
+            "format": "yaml",
+            "behavior": "domain",
+            "path": "./ruleset/cn.yaml",
+            "interval": 86400,
+            "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.yaml"
+        },
+        "cn-cidr": {
+            "type": "http",
+            "format": "yaml",
+            "behavior": "ipcidr",
+            "path": "./ruleset/cn-cidr.yaml",
+            "interval": 86400,
+            "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.yaml"
+        },
+        "ru": {
+            "type": "http",
+            "format": "yaml",
+            "behavior": "domain",
+            "path": "./ruleset/ru.yaml",
+            "interval": 86400,
+            "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ru.yaml"
+        },
+        "ru-cidr": {
+            "type": "http",
+            "format": "yaml",
+            "behavior": "ipcidr",
+            "path": "./ruleset/ru-cidr.yaml",
+            "interval": 86400,
+            "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/ru.yaml"
+        },
+        "openai": {
+            "type": "http",
+            "format": "yaml",
+            "behavior": "domain",
+            "path": "./ruleset/openai.yaml",
+            "interval": 86400,
+            "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/openai.yaml"
+        }
+    },
+    "rules": [
+        "GEOIP,lan,DIRECT,no-resolve",
+        "NETWORK,udp,REJECT",
+        "RULE-SET,malware,REJECT",
+        "RULE-SET,phishing,REJECT",
+        "RULE-SET,cryptominers,REJECT",
+        "RULE-SET,category-ads-all,REJECT",
+        "RULE-SET,nsfw,REJECT",
+        "DOMAIN-SUFFIX,block.example.com,REJECT",
+        "RULE-SET,malware-cidr,REJECT",
+        "RULE-SET,phishing-cidr,REJECT",
+        "RULE-SET,ir,DIRECT",
+        "RULE-SET,cn,DIRECT",
+        "RULE-SET,ru,DIRECT",
+        "RULE-SET,openai,DIRECT",
+        "DOMAIN-SUFFIX,bypass.example.com,DIRECT",
+        "DOMAIN-SUFFIX,sanction.example.com,DIRECT",
+        "RULE-SET,ir-cidr,DIRECT",
+        "RULE-SET,cn-cidr,DIRECT",
+        "RULE-SET,ru-cidr,DIRECT",
+        "IP-CIDR,10.0.0.0/8,DIRECT",
+        "MATCH,✅ Selector"
+    ],
+    "ntp": {
+        "enable": true,
+        "server": "time.cloudflare.com",
+        "port": 123,
+        "interval": 30
+    }
+}
