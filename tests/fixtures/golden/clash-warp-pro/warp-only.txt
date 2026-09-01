@@ -1,0 +1,245 @@
+--- headers ---
+content-type: application/json
+content-disposition: attachment; filename=rayzen-warp-Pro-clash.json
+cache-control: no-store, no-cache, must-revalidate, max-age=0
+pragma: no-cache
+expires: 0
+--- body ---
+{
+    "mixed-port": 7890,
+    "ipv6": true,
+    "allow-lan": false,
+    "unified-delay": false,
+    "log-level": "warning",
+    "mode": "rule",
+    "geo-auto-update": true,
+    "geo-update-interval": 168,
+    "external-controller": "127.0.0.1:9090",
+    "external-controller-cors": {
+        "allow-origins": [
+            "*"
+        ],
+        "allow-private-network": true
+    },
+    "external-ui": "ui",
+    "external-ui-url": "https://github.com/MetaCubeX/metacubexd/archive/refs/heads/gh-pages.zip",
+    "profile": {
+        "store-selected": true,
+        "store-fake-ip": true
+    },
+    "dns": {
+        "enable": true,
+        "respect-rules": true,
+        "use-system-hosts": false,
+        "listen": "127.0.0.1:1053",
+        "ipv6": false,
+        "nameserver": [
+            "1.1.1.1#💮 Warp Pro - Best Ping 🚀"
+        ],
+        "proxy-server-nameserver": [
+            "8.8.8.8#DIRECT"
+        ],
+        "direct-nameserver": [
+            "8.8.8.8#DIRECT"
+        ],
+        "direct-nameserver-follow-policy": true,
+        "enhanced-mode": "redir-host"
+    },
+    "tun": {
+        "enable": true,
+        "stack": "mixed",
+        "auto-route": true,
+        "strict-route": true,
+        "auto-detect-interface": true,
+        "dns-hijack": [
+            "any:53",
+            "tcp://any:53"
+        ],
+        "mtu": 9000
+    },
+    "sniffer": {
+        "enable": true,
+        "force-dns-mapping": true,
+        "parse-pure-ip": true,
+        "override-destination": true,
+        "sniff": {
+            "HTTP": {
+                "ports": [
+                    80,
+                    8080,
+                    8880,
+                    2052,
+                    2082,
+                    2086,
+                    2095
+                ]
+            },
+            "TLS": {
+                "ports": [
+                    443,
+                    8443,
+                    2053,
+                    2083,
+                    2087,
+                    2096
+                ]
+            }
+        }
+    },
+    "proxies": [
+        {
+            "name": "💮 1. Warp Pro 🇮🇷",
+            "type": "wireguard",
+            "ip": "172.16.0.2/32",
+            "ipv6": "2606:4700:0000:0000:0000:0000:0000:0001/128",
+            "ip-version": "ipv4",
+            "private-key": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
+            "server": "engage.cloudflareclient.com",
+            "port": 2408,
+            "public-key": "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB=",
+            "allowed-ips": [
+                "0.0.0.0/0",
+                "::/0"
+            ],
+            "reserved": [
+                0,
+                0,
+                0
+            ],
+            "udp": true,
+            "mtu": 1280,
+            "amnezia-wg-option": {
+                "jc": 5,
+                "jmin": 50,
+                "jmax": 100,
+                "H1": 1,
+                "H2": 2,
+                "H3": 3,
+                "H4": 4
+            }
+        },
+        {
+            "name": "💮 1. WoW Pro 🌍",
+            "type": "wireguard",
+            "ip": "172.16.0.2/32",
+            "ipv6": "2606:4700:0000:0000:0000:0000:0000:0002/128",
+            "ip-version": "ipv4",
+            "private-key": "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC=",
+            "server": "162.159.192.1",
+            "port": 2408,
+            "public-key": "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB=",
+            "allowed-ips": [
+                "0.0.0.0/0",
+                "::/0"
+            ],
+            "reserved": [
+                4,
+                16,
+                65
+            ],
+            "udp": true,
+            "mtu": 1280,
+            "dialer-proxy": "💮 1. Warp Pro 🇮🇷"
+        },
+        {
+            "name": "💮 2. Warp Pro 🇮🇷",
+            "type": "wireguard",
+            "ip": "172.16.0.2/32",
+            "ipv6": "2606:4700:0000:0000:0000:0000:0000:0001/128",
+            "ip-version": "ipv4",
+            "private-key": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
+            "server": "162.159.192.1",
+            "port": 2408,
+            "public-key": "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB=",
+            "allowed-ips": [
+                "0.0.0.0/0",
+                "::/0"
+            ],
+            "reserved": [
+                0,
+                0,
+                0
+            ],
+            "udp": true,
+            "mtu": 1280,
+            "amnezia-wg-option": {
+                "jc": 5,
+                "jmin": 50,
+                "jmax": 100,
+                "H1": 1,
+                "H2": 2,
+                "H3": 3,
+                "H4": 4
+            }
+        },
+        {
+            "name": "💮 2. WoW Pro 🌍",
+            "type": "wireguard",
+            "ip": "172.16.0.2/32",
+            "ipv6": "2606:4700:0000:0000:0000:0000:0000:0002/128",
+            "ip-version": "ipv4",
+            "private-key": "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC=",
+            "server": "162.159.192.1",
+            "port": 2408,
+            "public-key": "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB=",
+            "allowed-ips": [
+                "0.0.0.0/0",
+                "::/0"
+            ],
+            "reserved": [
+                4,
+                16,
+                65
+            ],
+            "udp": true,
+            "mtu": 1280,
+            "dialer-proxy": "💮 2. Warp Pro 🇮🇷"
+        }
+    ],
+    "proxy-groups": [
+        {
+            "name": "✅ Selector",
+            "type": "select",
+            "proxies": [
+                "💮 Warp Pro - Best Ping 🚀",
+                "💮 WoW Pro - Best Ping 🚀",
+                "💮 1. Warp Pro 🇮🇷",
+                "💮 2. Warp Pro 🇮🇷",
+                "💮 1. WoW Pro 🌍",
+                "💮 2. WoW Pro 🌍"
+            ]
+        },
+        {
+            "name": "💮 Warp Pro - Best Ping 🚀",
+            "type": "url-test",
+            "proxies": [
+                "💮 1. Warp Pro 🇮🇷",
+                "💮 2. Warp Pro 🇮🇷"
+            ],
+            "url": "https://www.gstatic.com/generate_204",
+            "interval": 30,
+            "tolerance": 50
+        },
+        {
+            "name": "💮 WoW Pro - Best Ping 🚀",
+            "type": "url-test",
+            "proxies": [
+                "💮 1. WoW Pro 🌍",
+                "💮 2. WoW Pro 🌍"
+            ],
+            "url": "https://www.gstatic.com/generate_204",
+            "interval": 30,
+            "tolerance": 50
+        }
+    ],
+    "rules": [
+        "GEOIP,lan,DIRECT,no-resolve",
+        "MATCH,✅ Selector"
+    ],
+    "ntp": {
+        "enable": true,
+        "server": "time.cloudflare.com",
+        "port": 123,
+        "interval": 30
+    }
+}

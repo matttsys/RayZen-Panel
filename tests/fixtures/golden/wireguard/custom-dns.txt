@@ -1,0 +1,9 @@
+--- headers ---
+content-type: application/zip
+content-disposition: attachment; filename=rayzen-warp-wireguard-conf.zip
+cache-control: no-store, no-cache, must-revalidate
+pragma: no-cache
+--- body ---
+[zip archive]
+signature: 50 4b 03 04
+byteLength: 460

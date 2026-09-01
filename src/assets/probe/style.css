@@ -1,0 +1,12 @@
+body {
+    margin: 0;
+    padding: 16px;
+    font: 400 13px/1.5 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    color: #736a5c;
+    background: #f6f2ea;
+}
+
+.note {
+    max-width: 44ch;
+    margin: 0;
+}

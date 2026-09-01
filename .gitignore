@@ -1,0 +1,15 @@
+node_modules/
+.wrangler/
+.env
+.env.*
+!.env.example
+*.log
+coverage/
+site/
+.DS_Store
+.idea/
+.vscode/
+dist/
+# font binaries are fetched at build/release time and are not source
+src/assets/fonts/
+wizard/assets/fonts/

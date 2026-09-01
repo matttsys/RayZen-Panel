@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en" dir="ltr" data-theme="midnight" data-mode="dark" data-rayzen-wizard-build="rayzen-panel-20260808-1">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#0b0a12">
+  <meta name="description" content="Deploy RayZen to your Cloudflare account.">
+  <title>Deploy RayZen</title>
+  <link rel="icon" href="/assets/glyph.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/rayzen-tokens.css?v=rayzen-panel-20260808-1">
+  <link rel="stylesheet" href="/style.css?v=rayzen-panel-20260808-1">
+  <link rel="stylesheet" href="/rayzen-product.css?v=rayzen-panel-20260808-1">
+  <script type="module" src="/app.js?v=rayzen-panel-20260808-1"></script>
+</head>
+<body>
+  <svg class="icon-sprite" aria-hidden="true">
+    <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M7.5 18.25h10a4.25 4.25 0 0 0 .52-8.47A6.25 6.25 0 0 0 6.1 8.85a4.75 4.75 0 0 0 1.4 9.4Z"/></symbol>
+    <symbol id="i-key" viewBox="0 0 24 24"><circle cx="8.5" cy="15.5" r="3.5"/><path d="m11 13 7.5-7.5M15 9l2 2m-4-4 2 2"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-5-5 5 5-5 5"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 5.5 5.5v5.75c0 4.1 2.7 7.75 6.5 9.75 3.8-2 6.5-5.65 6.5-9.75V5.5L12 3Z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M19.25 15.1A7.7 7.7 0 0 1 8.9 4.75 8.5 8.5 0 1 0 19.25 15.1Z"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.5"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4 4L19 7"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="11" height="11" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></symbol>
+    <symbol id="i-external" viewBox="0 0 24 24"><path d="M14 5h5v5m0-5-8 8"/><path d="M18 13v5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m8 10 4 4 4-4"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 6v5h-5"/><path d="M18.2 15.8A8 8 0 1 1 19.5 9"/></symbol>
+    <symbol id="i-language" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.4 2.5 3.7 5.5 3.7 9S14.4 18.5 12 21c-2.4-2.5-3.7-5.5-3.7-9S9.6 5.5 12 3Z"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.3 4.1 2.7 18a2 2 0 0 0 1.75 3h15.1a2 2 0 0 0 1.75-3L13.7 4.1a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4m0 4h.01"/></symbol>
+  </svg>
+
+  <div class="ambient ambient-a"></div><div class="ambient ambient-b"></div>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="RayZen deployment home">
+      <span class="brand-mark"><img src="/assets/glyph.svg" alt=""></span>
+      <span>RayZen</span><span class="brand-tag">Deploy</span>
+    </a>
+    <div class="top-actions">
+      <button class="language-button" id="language-toggle" type="button" aria-label="Switch language"><svg class="icon"><use href="#i-language"/></svg><span id="language-label">FA</span></button>
+      <button class="icon-button" id="theme-toggle" type="button" aria-label="Switch theme">
+      <svg class="icon theme-dark"><use href="#i-sun"/></svg>
+      <svg class="icon theme-light"><use href="#i-moon"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main id="app" class="app-shell"></main>
+  <footer class="footer"><span>RayZen v1.1.0</span><span class="dot"></span><span id="footer-copy">Private by design · deployed to your Cloudflare</span></footer>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
