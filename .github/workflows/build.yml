@@ -27,6 +27,20 @@ jobs:
         run: npm run build
       - name: Synchronize Wizard artifact
         run: npm run release:sync-wizard
+      - name: Committed Wizard artifact is not stale
+        # The step above rewrote wizard/artifacts from this run's own build, so any
+        # difference means the committed copy predates src/. That matters because the
+        # Wizard uploads wizard/artifacts/worker.js instead of building — a Vercel
+        # function with no esbuild and no src/ — so a stale copy deploys an older Panel
+        # than this commit describes, silently and for every new user.
+        #
+        # Regenerate and commit the result. Do not delete the artifact to make this
+        # pass: the Wizard has no other source of Worker bytes.
+        run: |
+          git diff --quiet -- wizard/artifacts && exit 0
+          echo "::error::wizard/artifacts is stale. Run 'npm run build && npm run release:sync-wizard' and commit the result."
+          git diff --stat -- wizard/artifacts
+          exit 1
       - name: Wizard tests
         run: npm --prefix wizard test
       - name: TDZ and module safety

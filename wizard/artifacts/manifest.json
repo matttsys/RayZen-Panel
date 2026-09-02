@@ -7,8 +7,8 @@
     "nodejs_compat"
   ],
   "kvBinding": "kv",
-  "sha256": "bdf60bc8be5d9ec72aaa9ac006ca0f4a091c00bb0d5eee9d716f67a18d832be5",
-  "size": 577752,
+  "sha256": "9a945dcf7dd9b8d52f3b7723ff12c38ac0223a0bd31742c61cee137d088571f5",
+  "size": 581744,
   "setupBuildMarker": "rayzen-setup-6df08e2d78a47eb1",
   "buildMode": "production",
   "toolchain": {
