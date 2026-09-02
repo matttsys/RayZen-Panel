@@ -21,8 +21,8 @@
   "node": "24.18.0",
   "measured": {
     "$comment": "Canonical npm build (esbuild), measured with npm run size on Node 24.",
-    "workerRawBytes": 577724,
-    "workerGzipBytes": 308903,
+    "workerRawBytes": 581744,
+    "workerGzipBytes": 312094,
     "previous": {
       "recordedAt": "2026-08-07",
       "workerRawBytes": 561568,
@@ -32,6 +32,8 @@
   },
   "budgets": {
     "$comment": [
+      "2026-09-02 recorded measurement corrected, limits unchanged at 585,000 raw / 315,000 gzip. The 577,724 / 308,903 recorded in the note below was measured from a build that predated the panel UI work it describes: the committed Wizard artifact had not been regenerated, so the inline SVG icon sprite, the split cards and the Analytics fix were never compiled into any measured bundle. Rebuilt from current src, the canonical artifact is 581,744 raw / 312,094 gzip. The +4,020 raw / +3,191 gzip is that UI work being embedded for the first time, not a code-size regression, and it lands inside the limits already raised on 2026-09-01, so no threshold moves. Both figures remain above the warn band, which is the intended state of a spent ratchet.",
+      "",
       "2026-09-01 Companion integration: hard limits move to 585,000 raw / 315,000 gzip and warn thresholds to 575,000 / 305,000. The measured artifact is 577,724 raw / 308,903 gzip, +16,156 raw / +13,115 gzip over the previous record. The growth is the Companion contract surface, not dependencies: per-profile request limits with their exhausted status and counter reset, the traffic accumulator and its 24-hour metrics, clean-IP management, mode switching, the subscription-address route and the batch scanner apply. It was paid down slightly in the same window: the welcome dialog that opened on every visit is gone, and its four setup steps are now an inline collapsible section in the overview. At 308,903 gzip bytes the artifact is 9.8% of Cloudflare's 3 MiB compressed script limit, so the platform constraint is still far away; the ratchet stands and the next increase needs its own justification here.",
       "",
       "2026-08-07 final production polish: hard limits move to 575,000 raw / 305,000 gzip and warn thresholds to 560,000 / 295,000. The committed fallback artifact is 561,568 raw / 295,788 gzip and includes complete workspace themes, two-language rendering, operational diagnostics, Smart Setup handoff actions, denser overview/subscription analytics, accessible sortable client data, interaction/focus/reduced-motion states, and responsive navigation refinements. The sandbox could not install Terser/html-minifier/esbuild, so the directly deployable artifact is intentionally a conservative upper bound; the canonical npm build should be smaller. At 295,788 gzip bytes it remains under 9.5% of Cloudflare’s 3 MiB compressed script limit. No backend, auth, secret, Worker naming, deployment, configuration-generation, or scanner architecture was replaced.",

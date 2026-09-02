@@ -15,11 +15,16 @@ RayZen Panel v1.1.0 establishes the Worker as the official backend for RayZen Co
 
 | Artifact | Result |
 | --- | --- |
-| `dist/worker.js` | Production build, 559,433 bytes |
+| `dist/worker.js` | Production build, 581,744 bytes |
 | `wizard/artifacts/worker.js` | Byte-identical to `dist/worker.js` |
-| SHA-256 | `05d057f70311c2898e5f9855bb684f0ddaf1e49ddb7c4d76ac238cee3579f4e7` |
+| SHA-256 | `9a945dcf7dd9b8d52f3b7723ff12c38ac0223a0bd31742c61cee137d088571f5` |
 | Build toolchain | esbuild 0.28.1 |
 | Wrangler dry run | Passed with KV binding `kv` |
+
+The artifact grew from the 559,433 bytes recorded earlier because it was rebuilt from
+current `src/` after the panel UI work, not because of a code-size regression; the Wizard
+copy had been shipping a bundle that predated the inline SVG icon sprite, the split
+overview cards and the Analytics fix.
 
 ## Verification
 
