@@ -1,0 +1,10 @@
+* text=auto eol=lf
+
+*.png binary
+*.woff binary
+*.woff2 binary
+*.zip binary
+
+# Keep the language breakdown representative of hand-written source.
+docs/** linguist-documentation
+previews/** linguist-documentation

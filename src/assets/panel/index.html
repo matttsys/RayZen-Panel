@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="ocean">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RayZen Panel v__VERSION__</title>
+    <link id="favicon" rel="icon" type="image/x-icon" href="data:image/x-icon;base64,__ICON__">
+    <style>
+        /* CSS_PLACEHOLDER */
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="header-title">
+            <img id="header-logo" src="data:image/x-icon;base64,__ICON__" alt="RayZen Logo" width="48" height="48">
+            <h1>
+                RayZen Panel
+                <span class="panel-version">
+                    v__VERSION__
+                </span>
+            </h1>
+        </div>
+        <button type="button" id="logout" class="panel-settings" title="Log out" data-rz-action="logout">
+            <span class="rz-icon" data-icon="logout" aria-hidden="true"></span>
+        </button>
+    </div>
+
+    <div class="container form-container">
+
+        <h2><span class="rz-icon" data-icon="dashboard" aria-hidden="true"></span>Admin</h2>
+
+        <div class="container section">
+            <h3>
+                <span class="rz-icon" data-icon="clock_loader_40" aria-hidden="true"></span>
+                Last 24h Requests
+            </h3>
+            <p class="rz-card-desc">Requests served in the last day, from your Cloudflare account. Needs an account token; otherwise this stays unavailable.</p>
+            <div class="dashboard-info">
+                <span><span class="rz-icon" data-icon="data_usage" aria-hidden="true"></span>RayZen</span>
+                <span><b id="panel-usage"></b><span class="usage-pct"><span class="separator"> | </span><span id="panel-pct"></span>%</span></span>
+            </div>
+            <div class="dashboard-info">
+                <span><span class="rz-icon" data-icon="data_usage" aria-hidden="true"></span>Total</span>
+                <span><b id="total-usage"></b><span class="usage-pct"><span class="separator"> | </span><span id="total-pct"></span>%</span></span>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <details>
+                <summary>
+                    <h3>Settings</h3>
+                </summary>
+                <div class="section">
+                    <div class="dashboard-action">
+                        <span>Update Panel</span>
+                        <button id="updatePanel" class="button" data-rz-action="update-panel" disabled>
+                            <span class="rz-icon" data-icon="upgrade" aria-hidden="true"></span>
+                            Update
+                        </button>
+                    </div>
+                    <div class="dashboard-action">
+                        <span>Reset Password</span>
+                        <button id="openResetPass" class="button" data-rz-action="open-reset-password">
+                            <span class="rz-icon" data-icon="key_vertical" aria-hidden="true"></span>
+                            Reset
+                        </button>
+                    </div>
+                    <div class="dashboard-action">
+                        <span>Delete Panel</span>
+                        <button id="deletePanel" class="button delete" data-rz-action="delete-panel">
+                            <span class="rz-icon" data-icon="delete" aria-hidden="true"></span>
+                            Delete
+                        </button>
+                    </div>
+                </div>
+            </details>
+                    </div>
+
+        <form id="telegramForm" class="configForm" data-rz-submit="telegram">
+            <div class="accordion-item">
+                <details>
+                    <summary>
+                        <h3>Telegram Bot</h3>
+                    </summary>
+                    <div class="section">
+                        <p class="rz-card-desc">Connect a bot so the panel can be read and managed from Telegram. Both fields are required.</p>
+                        <div class="form-control">
+                            <label for="telegramBotToken">Telegram Bot Token</label>
+                            <div>
+                                <input type="text" id="telegramBotToken" name="telegramBotToken">
+                            </div>
+                        </div>
+                        <div class="form-control">
+                            <label for="telegramUserId">Telegram User ID</label>
+                            <div>
+                                <input type="text" id="telegramUserId" name="telegramUserId">
+                            </div>
+                        </div>
+                        <div id="apply" class="form-control apply">
+                            <button type="submit" id="setup-telegram" class="button" form="telegramForm" disabled>
+                                <span class="rz-icon" data-icon="smart_toy" aria-hidden="true"></span>
+                                Setup
+                            </button>
+                            <button type="button" id="remove-telegram" class="button delete"
+                                data-rz-action="remove-telegram" disabled>
+                                <span class="rz-icon" data-icon="delete" aria-hidden="true"></span>
+                                Remove
+                            </button>
+                        </div>
+                    </div>
+                </details>
+                            </div>
+        </form>
+
+    </div>
+
+    <div class="form-container container">
+        <h2><span class="rz-icon" data-icon="settings" aria-hidden="true"></span>Proxy Settings</h2>
+        <form id="configForm" class="configForm" data-rz-submit="configuration">
+
+            <div class="accordion-item">
+                <details>
+                    <summary>
+                        <h3>Common</h3>
+                    </summary>
+                    <div class="section">
+                        <div class="form-control">
+                            <label for="localDNS">Local DNS</label>
+                            <div>
+                                <input type="text" id="localDNS" name="localDNS" required>
+                            </div>
+                        </div>
+                        <div class="form-control">
+                            <label for="antiSanctionDNS">Anti Sanction DNS</label>
+                            <div>
+                                <input type="text" id="antiSanctionDNS" name="antiSanctionDNS" required>
+                            </div>
+                        </div>
+                        <div class="form-control">
+                            <label for="fakeDNS">Fake DNS</label>
+                            <div class="select-wrapper">
+                                <select id="fakeDNS" name="fakeDNS">
+                                    <option value="true">Enabled</option>
+                                    <option value="false">Disabled</option>
+                                </select>
+                                <span class="rz-icon" data-icon="keyboard_arrow_down" aria-hidden="true"></span>
+                            </div>
+                        </div>
+                        <div class="form-control">
+                            <label for="enableIPv6">IPv6</label>
+                            <div class="select-wrapper">
+                                <select id="enableIPv6" name="enableIPv6">
+                                    <option value="true">Enabled</option>
+                                    <option value="false">Disabled</option>
+                                </select>
+                                <span class="rz-icon" data-icon="keyboard_arrow_down" aria-hidden="true"></span>
+                            </div>
+                        </div>
+                        <div class="form-control">
+                            <label for="allowLANConnection">Allow connections from LAN</label>
+                            <div class="select-wrapper">
+                                <select id="allowLANConnection" name="allowLANConnection">
+                                    <option value="true">Enabled</option>
+                                    <option value="false">Disabled</option>
+                                </select>
+                                <span class="rz-icon" data-icon="keyboard_arrow_down" aria-hidden="true"></span>
+                            </div>
+                        </div>
+                        <div class="form-control">
+                            <label for="logLevel">Log Level</label>
+                            <div class="select-wrapper">
+                                <select id="logLevel" name="logLevel">
+                                    <option value="none">Disabled</option>
+                                    <option value="warning">Warning</option>
+                                    <option value="error">Error</option>
+                                    <option value="info">Info</option>
+                                    <option value="debug">Debug</option>
+                                </select>
+                                <span class="rz-icon" data-icon="keyboard_arrow_down" aria-hidden="true"></span>
+                            </div>
+                        </div>
+                        <div class="form-control">
+                            <label for="clientCompat">Client compatibility</label>
+                            <div class="select-wrapper">
+                                <select id="clientCompat" name="clientCompat">
+                                    <option value="universal">Universal (recommended)</option>
+                                    <option value="latest">Latest cores only</option>
+                                </select>
+                                <span class="rz-icon" data-icon="keyboard_arrow_down" aria-hidden="true"></span>
+                            </div>
+                        </div>
+                        <p class="form-note"><span class="rz-icon" data-icon="info" aria-hidden="true"></span> Universal generates configs every mainstream core accepts — v2rayNG, v2rayN, Streisand, Hiddify — with fragmentation on a freedom dialer and no version floor. Latest uses Xray 26 features (finalmask, happy eyeballs) and only runs on the newest cores.</p>
+                        <div class="form-control">
+                            <label for="customDomain">Custom Domain</label>
+                            <div>
+                                <input type="text" id="customDomain" name="customDomain">
+                            </div>
+                        </div>
+                        <div class="form-control">
+                            <label for="dohUrl">Underlying DoH</label>
+                            <div>
+                                <input type="text" id="dohUrl" name="dohUrl">
+                            </div>
+                        </div>
+                        <div class="form-control">
+                            <label for="securePath">
+                                Panel - Subscriptions Path<span class="rz-icon" data-icon="refresh" aria-hidden="true"></span>
+                            </label>
+                            <div>
+                                <input type="text" id="securePath" name="securePath" required>
+                            </div>
+                        </div>
+                        <div class="form-control">
+                            <label for="fallback">Fallback Domain</label>
+                            <div>
+                                <input type="text" id="fallback" name="fallback">
+                            </div>
+                        </div>
+                    </div>
+                </details>
+                            </div>
+
+            <div class="accordion-item">
+                <details>
+                    <summary>
+                        <h3>VLESS - Trojan</h3>
+                    </summary>
+                    <div class="section">
+                        <div class="form-control">
+                            <label for="protocols">Protocols</label>
+                            <div class="select-wrapper">
+                                <select id="protocols" name="protocols">
+                                    <option value="vless,trojan">VLESS & Trojan</option>
+                                    <option value="vless">VLESS</option>
+                                    <option value="trojan">Trojan</option>
+                                </select>
+                                <span class="rz-icon" data-icon="keyboard_arrow_down" aria-hidden="true"></span>
+                            </div>
+                        </div>
+                        <div class="form-control">
+                            <label for="vlUUID">
+                                VLESS UUID<span class="rz-icon" data-icon="refresh" aria-hidden="true"></span>
+                            </label>
+                            <div>
+                                <input type="text" id="vlUUID" name="vlUUID" required>
+                            </div>
+                        </div>
+                        <div class="form-control">
+                            <label for="trPass">
+                                Trojan Password<span class="rz-icon" data-icon="refresh" aria-hidden="true"></span>
+                            </label>
+                            <div>
+                                <input type="text" id="trPass" name="trPass" required>
+                            </div>
+                        </div>
+                        <div class="form-control">
+                            <label for="remoteDNS">Remote DNS</label>
+                            <div>
+                                <input type="text" id="remoteDNS" name="remoteDNS" required>
+                            </div>
+                        </div>
+                        <div class="form-control">
+                            <label for="upstreamProxy">Upstream TCP Proxy</label>
+                            <div>
+                                <input type="text" id="upstreamProxy" name="upstreamProxy">
+                            </div>
+                        </div>
+                        <div class="form-control">
+                            <label for="chainProxy">Chain Proxy</label>
+                            <div>
+                                <input type="text" id="chainProxy" name="chainProxy">
+                            </div>
+                        </div>
+                        <div class="form-control rz-clean-ips-control">
+                            <label for="cleanIPs">
+                                <span>Clean IPs - Domains</span>
+                                <span class="rz-clean-ip-badge" id="cleanIPBadge">0/40</span>
+                                <a class="url" href="#intelligence" title="Scanner" data-rz-action="open-scanner">
+                                    <span class="rz-icon" data-icon="open_in_new" aria-hidden="true"></span>
+                                </a>
+                            </label>
+                            <div class="rz-clean-ip-manager">
+                                <div class="rz-clean-ip-add-bar">
+                                    <input type="text" id="cleanIPInput" placeholder="IP or domain (e.g. 1.1.1.1)" aria-label="Add Clean IP or domain">
+                                    <button type="button" id="addCleanIPBtn" class="button rz-action rz-compact-action" title="Add Clean IP">
+                                        <span class="rz-icon" data-icon="add_circle" aria-hidden="true"></span>
+                                        <span>Add</span>
+                                    </button>
+                                    <button type="button" id="toggleBulkCleanIPBtn" class="button rz-secondary-action rz-compact-action" title="Bulk paste IP addresses">
+                                        <span class="rz-icon" data-icon="draft" aria-hidden="true"></span>
+                                        <span>Bulk</span>
+                                    </button>
+                                </div>
+                                <div id="cleanIPBulkSection" class="rz-clean-ip-bulk" hidden>
+                                    <textarea id="cleanIPBulkInput" rows="3" placeholder="Paste IP addresses or domains (newline or comma separated)..."></textarea>
+                                    <div class="rz-clean-ip-bulk-actions">
+                                        <button type="button" id="bulkAppendBtn" class="button rz-action rz-compact-action">Append</button>
+                                        <button type="button" id="bulkReplaceBtn" class="button rz-secondary-action rz-compact-action">Replace All</button>
+                                        <button type="button" id="bulkCancelBtn" class="button rz-secondary-action rz-compact-action">Cancel</button>
+                                    </div>
+                                </div>
+                                <div id="cleanIPError" class="rz-clean-ip-feedback" hidden></div>
+                                <div id="cleanIPList" class="rz-clean-ip-list"></div>
+                                <textarea id="cleanIPs" name="cleanIPs" rows="1" hidden></textarea>
+                            </div>
+                        </div>
+                        <div class="form-control">
+                            <span>TLS Ports</span>
+                            <div>
+                                <div id="tls-ports" class="checkbox-container inner-container"></div>
+                            </div>
+                        </div>
+                        <div id="none-tls" class="form-control" hidden>
+                            <span>non-TLS Ports</span>
+                            <div>
+                                <div id="non-tls-ports" class="checkbox-container inner-container"></div>
+                            </div>
+                        </div>
+                        <div class="form-control">
+                            <label for="fingerprint">Fingerprint</label>
+                            <div class="select-wrapper">
+                                <select id="fingerprint" name="fingerprint">
+                                    <option value="chrome">chrome</option>
+                                    <option value="firefox">firefox</option>
+                                    <option value="safari">safari</option>
+                                    <option value="ios">ios</option>
+                                    <option value="android">android</option>
+                                    <option value="edge">edge</option>
+                                    <option value="360">360</option>
+                                    <option value="qq">qq</option>
+                                    <option value="random">random</option>
+                                    <option value="randomized">randomized</option>
+                                </select>
+                                <span class="rz-icon" data-icon="keyboard_arrow_down" aria-hidden="true"></span>
+                            </div>
+                        </div>
+                        <div class="form-control">
+                            <label for="bestPingInterval">Best Ping Interval</label>
+                            <div>
+                                <input type="number" id="bestPingInterval" name="bestPingInterval" min="10" max="90">
+                            </div>
+                        </div>
+                        <div class="form-control">
+                            <label for="enableTFO">TCP Fast Open</label>
+                            <div class="select-wrapper">
+                                <select id="enableTFO" name="enableTFO">
+                                    <option value="true">Enabled</option>
+                                    <option value="false">Disabled</option>
+                                </select>
+                                <span class="rz-icon" data-icon="keyboard_arrow_down" aria-hidden="true"></span>
+                            </div>
+                        </div>
+                        <div class="container">
+                            <div class="section">
+                                <h4><span class="rz-icon" data-icon="tune" aria-hidden="true"></span> Proxy IP</h4>
+                                <div class="form-control">
+                                    <label for="proxyIpMode">Mode</label>
+                                    <div class="select-wrapper">
+                                        <select id="proxyIpMode" name="proxyIpMode">
+                                            <option value="proxyip">Proxy IP</option>
+                                            <option value="prefix">NAT64</option>
+                                        </select>
+                                        <span class="rz-icon" data-icon="keyboard_arrow_down" aria-hidden="true"></span>
+                                    </div>
+                                </div>
+                                <div class="form-control">
+                                    <label for="proxyIPs">
+                                        Proxy IPs - Domains<a class="url" href="./proxy-ip" title="Proxy IPs"
+                                            target="_blank" rel="noopener noreferrer">
+                                            <span class="rz-icon" data-icon="open_in_new" aria-hidden="true"></span>
+                                        </a>
+                                    </label>
+                                    <div>
+                                        <textarea id="proxyIPs" name="proxyIPs" rows="1"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-control">
+                                    <label for="prefixes">
+                                        NAT64 Prefixes
+                                    </label>
+                                    <div>
+                                        <textarea id="prefixes" name="prefixes" rows="1"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container">
+                            <div class="section">
+                                <h4><span class="rz-icon" data-icon="tune" aria-hidden="true"></span> ECH</h4>
+                                <p class="form-note form-note--warn"><span class="rz-icon" data-icon="warning" aria-hidden="true"></span> ECH needs a compatible core (sing-box 1.13+ or an Xray build with ECH support). Older clients silently ignore it — leave disabled if you are unsure.</p>
+                                <div class="form-control">
+                                    <label for="enableECH">ECH</label>
+                                    <div class="select-wrapper">
+                                        <select id="enableECH" name="enableECH">
+                                            <option value="true">Enabled</option>
+                                            <option value="false">Disabled</option>
+                                        </select>
+                                        <span class="rz-icon" data-icon="keyboard_arrow_down" aria-hidden="true"></span>
+                                    </div>
+                                </div>
+                                <div class="form-control">
+                                    <label for="echServerName">ECH Server Name</label>
+                                    <div>
+                                        <input type="text" id="echServerName" name="echServerName">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container">
+                            <div class="section">
+                                <h4><span class="rz-icon" data-icon="tune" aria-hidden="true"></span> Custom CDN</h4>
+                                <div class="form-control">
+                                    <label for="customCdnAddrs">Addresses</label>
+                                    <div>
+                                        <textarea id="customCdnAddrs" name="customCdnAddrs" rows="1"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-control">
+                                    <label for="customCdnHost">Host</label>
+                                    <div>
+                                        <input type="text" id="customCdnHost" name="customCdnHost">
+                                    </div>
+                                </div>
+                                <div class="form-control">
+                                    <label for="customCdnSni">SNI</label>
+                                    <div>
+                                        <input type="text" id="customCdnSni" name="customCdnSni">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+                            </div>
+
+            <div class="accordion-item">
+                <details>
+                    <summary>
+                        <h3>Config Naming</h3>
+                    </summary>
+                    <div class="section">
+                        <div class="form-control">
+                            <label for="remarkSeparator">Field separator</label>
+                            <div>
+                                <input type="text" id="remarkSeparator" name="remarkSeparator" maxlength="4" placeholder="•">
+                            </div>
+                        </div>
+                        <div class="form-control">
+                            <label for="remarkSuffix">Trailing mark (blank to disable)</label>
+                            <div>
+                                <input type="text" id="remarkSuffix" name="remarkSuffix" maxlength="8" placeholder="RZ">
+                            </div>
+                        </div>
+                    </div>
+                </details>
+                            </div>
+
+            <div class="accordion-item">
+                <details>
+                    <summary>
+                        <h3>Xray Fragment</h3>
+                    </summary>
+                    <div class="section">
+                        <div class="form-control">
+                            <label for="fragmentMode">Mode</label>
+                            <div class="select-wrapper">
+                                <select id="fragmentMode" name="fragmentMode" data-rz-change="fragment-mode">
+                                    <option value="custom">Custom</option>
+                                    <option value="low">Low</option>
+                                    <option value="medium">Medium</option>
+                                    <option value="high">High</option>
+                                    <option value="severe">Severe</option>
+                                </select>
+                                <span class="rz-icon" data-icon="keyboard_arrow_down" aria-hidden="true"></span>
+                            </div>
+                        </div>
+                        <div class="form-control">
+                            <label for="fragmentPackets">Packets</label>
+                            <div class="select-wrapper">
+                                <select id="fragmentPackets" name="fragmentPackets">
+                                    <option value="tlshello">tlshello</option>
+                                    <option value="1-1">1-1</option>
+                                    <option value="1-2">1-2</option>
+                                    <option value="1-3">1-3</option>
+                                    <option value="1-5">1-5</option>
+                                </select>
+                                <span class="rz-icon" data-icon="keyboard_arrow_down" aria-hidden="true"></span>
+                            </div>
+                        </div>
+                        <div class="form-control">
+                            <label for="fragmentLengthMin">Length</label>
+                            <div class="min-max">
+                                <input type="number" id="fragmentLengthMin" name="fragmentLengthMin" min="1" required>
+                                <span>-</span>
+                                <input type="number" id="fragmentLengthMax" name="fragmentLengthMax" max="500" required aria-label="Maximum fragment length">
+                            </div>
+                        </div>
+                        <div class="form-control">
+                            <label for="fragmentDelayMin">Delay</label>
+                            <div class="min-max">
+                                <input type="number" id="fragmentDelayMin" name="fragmentDelayMin" min="1" max="30"
+                                    required>
+                                <span>-</span>
+                                <input type="number" id="fragmentDelayMax" name="fragmentDelayMax" min="1" max="30"
+                                    required aria-label="Maximum fragment delay">
+                            </div>
+                        </div>
+                        <div class="form-control">
+                            <label for="fragmentMaxSplitMin">Max Split</label>
+                            <div class="min-max">
+                                <input type="number" id="fragmentMaxSplitMin" name="fragmentMaxSplitMin" min="2">
+                                <span>-</span>
+                                <input type="number" id="fragmentMaxSplitMax" name="fragmentMaxSplitMax" min="2" aria-label="Maximum fragment split">
+                            </div>
+                        </div>
+                    </div>
+                </details>
+                            </div>
+
+            <div class="accordion-item">
+                <details>
+                    <summary>
+                        <h3>External Raw Configs</h3>
+                    </summary>
+                    <div class="section">
+                        <div class="form-control">
+                            <label for="customSubs">Subscriptions</label>
+                            <div>
+                                <textarea id="customSubs" name="customSubs" rows="1" wrap="off"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-control">
+                            <label for="customConfigs">Single Configs</label>
+                            <div>
+                                <textarea id="customConfigs" name="customConfigs" rows="1" wrap="off"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+                            </div>
+
+            <div class="accordion-item">
+                <details>
+                    <summary>
+                        <h3>Warp General</h3>
+                    </summary>
+                    <div class="section">
+                        <div class="form-control">
+                            <label for="warpRemoteDNS">Remote DNS</label>
+                            <div>
+                                <input type="text" id="warpRemoteDNS" name="warpRemoteDNS" required>
+                            </div>
+                        </div>
+                        <div class="form-control">
+                            <label for="warpEndpoints">
+                                Endpoints<a class="url" href="#intelligence" title="Scanner" data-rz-action="open-scanner">
+                                    <span class="rz-icon" data-icon="open_in_new" aria-hidden="true"></span>
+                                </a>
+                            </label>
+                            <div>
+                                <textarea id="warpEndpoints" name="warpEndpoints" rows="1" required></textarea>
+                            </div>
+                        </div>
+                        <div class="form-control">
+                            <label for="warpBestPingInterval">Best Ping Interval</label>
+                            <div>
+                                <input type="number" id="warpBestPingInterval" name="warpBestPingInterval" min="10"
+                                    max="90">
+                            </div>
+                        </div>
+                        <div class="form-control">
+                            <label for="warpReservedBytes">Reserved Bytes</label>
+                            <div class="select-wrapper">
+                                <select id="warpReservedBytes" name="warpReservedBytes">
+                                    <option value="true">Enabled</option>
+                                    <option value="false">Disabled</option>
+                                </select>
+                                <span class="rz-icon" data-icon="keyboard_arrow_down" aria-hidden="true"></span>
+                            </div>
+                        </div>
+                        <div class="dashboard-action">
+                            <span>Renew Warp Accounts</span>
+                            <button type="button" class="button" data-rz-action="renew-warp">
+                                <span id="warp-update" class="rz-icon" data-icon="autorenew" aria-hidden="true"></span>
+                                Renew
+                            </button>
+                        </div>
+                    </div>
+                </details>
+                            </div>
+
+            <div class="accordion-item">
+                <details>
+                    <summary>
+                        <h3>Warp PRO</h3>
+                    </summary>
+                    <div class="section">
+                        <div class="container">
+                            <div class="section">
+                                <h4><span class="rz-icon" data-icon="tune" aria-hidden="true"></span> MahsaNG Noise</h4>
+                                <div class="form-control">
+                                    <label for="knockerNoiseMode">Mode</label>
+                                    <div>
+                                        <input type="text" id="knockerNoiseMode" name="knockerNoiseMode"
+                                            title="Fill in 'none', 'quic', 'random', or any HEX string like 'ee0000000108aaaa'"
+                                            required>
+                                    </div>
+                                </div>
+                                <div class="form-control">
+                                    <label for="knockerNoiseCountMin">Count</label>
+                                    <div class="min-max">
+                                        <input type="number" id="knockerNoiseCountMin" name="knockerNoiseCountMin"
+                                            min="1" required>
+                                        <span>-</span>
+                                        <input type="number" id="knockerNoiseCountMax" name="knockerNoiseCountMax"
+                                            min="1" required aria-label="Maximum MahsaNG noise count">
+                                    </div>
+                                </div>
+                                <div class="form-control">
+                                    <label for="knockerNoiseSizeMin">Size</label>
+                                    <div class="min-max">
+                                        <input type="number" id="knockerNoiseSizeMin" name="knockerNoiseSizeMin" min="1"
+                                            required>
+                                        <span>-</span>
+                                        <input type="number" id="knockerNoiseSizeMax" name="knockerNoiseSizeMax" min="1"
+                                            required aria-label="Maximum MahsaNG noise size">
+                                    </div>
+                                </div>
+                                <div class="form-control">
+                                    <label for="knockerNoiseDelayMin">Delay</label>
+                                    <div class="min-max">
+                                        <input type="number" id="knockerNoiseDelayMin" name="knockerNoiseDelayMin"
+                                            min="1" required>
+                                        <span>-</span>
+                                        <input type="number" id="knockerNoiseDelayMax" name="knockerNoiseDelayMax"
+                                            min="1" required aria-label="Maximum MahsaNG noise delay">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container">
+                            <div class="section">
+                                <h4><span class="rz-icon" data-icon="tune" aria-hidden="true"></span> Clash - Amnezia Noise</h4>
+                                <div class="form-control">
+                                    <label for="amneziaNoiseCount">Count</label>
+                                    <div>
+                                        <input type="number" id="amneziaNoiseCount" name="amneziaNoiseCount" min="1"
+                                            required>
+                                    </div>
+                                </div>
+                                <div class="form-control">
+                                    <label for="amneziaNoiseSizeMin">Size</label>
+                                    <div class="min-max">
+                                        <input type="number" id="amneziaNoiseSizeMin" name="amneziaNoiseSizeMin" min="1"
+                                            required>
+                                        <span>-</span>
+                                        <input type="number" id="amneziaNoiseSizeMax" name="amneziaNoiseSizeMax" min="1"
+                                            required aria-label="Maximum Amnezia noise size">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="udp-noise-container" class="container">
+                            <div class="header-container">
+                                <h4><span class="rz-icon" data-icon="tune" aria-hidden="true"></span> v2ray Noise</h4>
+                                <button type="button" class="add-noise" data-rz-action="add-noise" aria-label="Add UDP noise">
+                                    <span class="rz-icon" data-icon="add_circle" aria-hidden="true"></span>
+                                </button>
+                            </div>
+                            <div id="noises" class="section"></div>
+                        </div>
+                    </div>
+                </details>
+                            </div>
+
+            <div class="accordion-item">
+                <details>
+                    <summary>
+                        <h3>Routing Rules</h3>
+                    </summary>
+                    <div class="section">
+                        <div class="container">
+                            <h4><span class="rz-icon" data-icon="tune" aria-hidden="true"></span> Preset Rules</h4>
+                            <div class="form-control">
+                                <span>Bypass rules</span>
+                                <div>
+                                    <div id="bypass-rules" class="checkbox-container inner-container">
+                                        <div class="checkbox-wrapper">
+                                            <input type="checkbox" id="bypassIran" name="bypassIran" value="true">
+                                            <label for="bypassIran">Iran</label>
+                                        </div>
+                                        <div class="checkbox-wrapper">
+                                            <input type="checkbox" id="bypassChina" name="bypassChina" value="true">
+                                            <label for="bypassChina">China</label>
+                                        </div>
+                                        <div class="checkbox-wrapper">
+                                            <input type="checkbox" id="bypassRussia" name="bypassRussia" value="true">
+                                            <label for="bypassRussia">Russia</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-control">
+                                <span>Block rules</span>
+                                <div>
+                                    <div id="block-rules" class="checkbox-container inner-container">
+                                        <div class="checkbox-wrapper">
+                                            <input type="checkbox" id="blockAds" name="blockAds" value="true">
+                                            <label for="blockAds">Ads.</label>
+                                        </div>
+                                        <div class="checkbox-wrapper">
+                                            <input type="checkbox" id="blockPorn" name="blockPorn" value="true">
+                                            <label for="blockPorn">Porn</label>
+                                        </div>
+                                        <div class="checkbox-wrapper">
+                                            <input type="checkbox" id="blockUDP443" name="blockUDP443" value="true">
+                                            <label for="blockUDP443">QUIC</label>
+                                        </div>
+                                        <div class="checkbox-wrapper">
+                                            <input type="checkbox" id="blockMalware" name="blockMalware" value="true"
+                                                data-rz-change="risky-rules">
+                                            <label for="blockMalware">Malware</label>
+                                        </div>
+                                        <div class="checkbox-wrapper">
+                                            <input type="checkbox" id="blockPhishing" name="blockPhishing" value="true"
+                                                data-rz-change="risky-rules">
+                                            <label for="blockPhishing">Phishing</label>
+                                        </div>
+                                        <div class="checkbox-wrapper">
+                                            <input type="checkbox" id="blockCryptominers" name="blockCryptominers"
+                                                value="true" data-rz-change="risky-rules">
+                                            <label for="blockCryptominers">Cryptominers</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container">
+                            <h4><span class="rz-icon" data-icon="tune" aria-hidden="true"></span> Custom Rules</h4>
+                            <div class="form-control">
+                                <label for="customBypassRules">Bypass IPs - Domains</label>
+                                <div>
+                                    <textarea id="customBypassRules" name="customBypassRules" rows="1"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-control">
+                                <label for="customBlockRules">Block IPs - Domains</label>
+                                <div>
+                                    <textarea id="customBlockRules" name="customBlockRules" rows="1"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container">
+                            <h4><span class="rz-icon" data-icon="tune" aria-hidden="true"></span> Sanction Rules</h4>
+                            <div class="form-control">
+                                <span>Bypass rules</span>
+                                <div>
+                                    <div id="bypass-sanction-rules" class="checkbox-container inner-container">
+                                        <div class="checkbox-wrapper">
+                                            <input type="checkbox" id="bypassOpenAi" name="bypassOpenAi" value="true">
+                                            <label for="bypassOpenAi">ChatGPT</label>
+                                        </div>
+                                        <div class="checkbox-wrapper">
+                                            <input type="checkbox" id="bypassGoogleAi" name="bypassGoogleAi"
+                                                value="true">
+                                            <label for="bypassGoogleAi">Google AIs</label>
+                                        </div>
+                                        <div class="checkbox-wrapper">
+                                            <input type="checkbox" id="bypassMicrosoft" name="bypassMicrosoft"
+                                                value="true">
+                                            <label for="bypassMicrosoft">Microsoft</label>
+                                        </div>
+                                        <div class="checkbox-wrapper">
+                                            <input type="checkbox" id="bypassOracle" name="bypassOracle" value="true">
+                                            <label for="bypassOracle">Oracle</label>
+                                        </div>
+                                        <div class="checkbox-wrapper">
+                                            <input type="checkbox" id="bypassDocker" name="bypassDocker" value="true">
+                                            <label for="bypassDocker">Docker</label>
+                                        </div>
+                                        <div class="checkbox-wrapper">
+                                            <input type="checkbox" id="bypassAdobe" name="bypassAdobe" value="true">
+                                            <label for="bypassAdobe">Adobe</label>
+                                        </div>
+                                        <div class="checkbox-wrapper">
+                                            <input type="checkbox" id="bypassEpicGames" name="bypassEpicGames"
+                                                value="true">
+                                            <label for="bypassEpicGames">Epic Games</label>
+                                        </div>
+                                        <div class="checkbox-wrapper">
+                                            <input type="checkbox" id="bypassIntel" name="bypassIntel" value="true">
+                                            <label for="bypassIntel">Intel</label>
+                                        </div>
+                                        <div class="checkbox-wrapper">
+                                            <input type="checkbox" id="bypassAmd" name="bypassAmd" value="true">
+                                            <label for="bypassAmd">AMD</label>
+                                        </div>
+                                        <div class="checkbox-wrapper">
+                                            <input type="checkbox" id="bypassNvidia" name="bypassNvidia" value="true">
+                                            <label for="bypassNvidia">Nvidia</label>
+                                        </div>
+                                        <div class="checkbox-wrapper">
+                                            <input type="checkbox" id="bypassAsus" name="bypassAsus" value="true">
+                                            <label for="bypassAsus">Asus</label>
+                                        </div>
+                                        <div class="checkbox-wrapper">
+                                            <input type="checkbox" id="bypassHp" name="bypassHp" value="true">
+                                            <label for="bypassHp">HP</label>
+                                        </div>
+                                        <div class="checkbox-wrapper">
+                                            <input type="checkbox" id="bypassLenovo" name="bypassLenovo" value="true">
+                                            <label for="bypassLenovo">Lenovo</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-control">
+                                <label for="customBypassSanctionRules">Bypass Domains</label>
+                                <div>
+                                    <textarea id="customBypassSanctionRules" name="customBypassSanctionRules"
+                                        rows="1"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+                            </div>
+
+            <div class="accordion-item">
+                <details>
+                    <summary>
+                        <h3>Import - Export</h3>
+                    </summary>
+                    <div class="section">
+
+                        <div class="container">
+                            <h4><span class="rz-icon" data-icon="link" aria-hidden="true"></span>Remote Settings</h4>
+                            <div class="form-control">
+                                <label for="remoteSettings">Remote URL</label>
+                                <div>
+                                    <input type="text" id="remoteSettings" name="remoteSettings">
+                                </div>
+                            </div>
+                            <div class="dashboard-action">
+                                <span>Import Remote</span>
+                                <button type="button" id="fetchSettingsBtn" class="button"
+                                    data-rz-action="import-remote">
+                                    <span class="rz-icon" data-icon="cloud_download" aria-hidden="true"></span>
+                                    Import
+                                </button>
+                            </div>
+                            <div class="dashboard-action">
+                                <span>Share Yours</span>
+                                <button type="button" class="button" data-rz-action="share-settings">
+                                    <span class="rz-icon" data-icon="share" aria-hidden="true"></span>
+                                    Share
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <h4><span class="rz-icon" data-icon="draft" aria-hidden="true"></span>File Settings</h4>
+                            <div class="dashboard-action">
+                                <span>Import File</span>
+                                <button type="button" class="button" data-rz-action="import-file">
+                                    <span class="rz-icon" data-icon="upload" aria-hidden="true"></span>
+                                    <input type="file" id="fileInput" accept=".dat" hidden
+                                        data-rz-change="import-file-settings" />
+                                    Import
+                                </button>
+                            </div>
+                            <div class="dashboard-action">
+                                <span>Export File</span>
+                                <button type="button" class="button" data-rz-action="export-settings">
+                                    <span class="rz-icon" data-icon="download" aria-hidden="true"></span>
+                                    Export
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+                            </div>
+
+            <div id="apply" class="form-control apply">
+                <button type="submit" id="applyButton" class="button disabled" form="configForm">
+                    <span class="rz-icon" data-icon="check_circle" aria-hidden="true"></span>
+                    Apply
+                </button>
+                <button type="button" class="panel-settings" title="Reset panel settings to default"
+                    data-rz-action="reset-settings">
+                    <span class="rz-icon" data-icon="settings_backup_restore" aria-hidden="true"></span>
+                </button>
+            </div>
+
+        </form>
+    </div>
+
+    <div id="subscriptions" class="form-container container">
+        <h2><span class="rz-icon" data-icon="link" aria-hidden="true"></span> Subscriptions</h2>
+    </div>
+
+    <div class="form-container container">
+        <h2><span class="rz-icon" data-icon="dns" aria-hidden="true"></span> DNS over HTTPS</h2>
+        <p class="rz-card-desc">A resolver address served by this deployment. Paste it into a client that supports DoH.</p>
+        <div class="value-container">
+            <div class="output-container">
+                <span id="doh" class="output"></span>
+            </div>
+            <button class="svg-btn" data-rz-action="copy-doh">
+                <span class="rz-icon" data-icon="content_copy" aria-hidden="true"></span>
+            </button>
+        </div>
+    </div>
+
+    <template id="message-template">
+        <div class="modal" hidden>
+            <div class="modal-content">
+                <div class="message-header">
+                    <div class="message-heading">
+                        <span class="rz-icon message-icon" aria-hidden="true"></span>
+                        <span class="message-title"></span>
+                    </div>
+                    <button type="button" class="rz-icon modal-close" data-icon="close" aria-label="Close"></button>
+                </div>
+                <div class="message-body">
+                    <pre class="message-text"></pre>
+                    <div class="message-buttons">
+                        <button class="button message-ok-btn">
+                            <span class="rz-icon" data-icon="check_circle" aria-hidden="true"></span>
+                            Ok
+                        </button>
+                        <button class="button message-cancel-btn">
+                            <span class="rz-icon" data-icon="cancel" aria-hidden="true"></span>
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <div class="form-container container">
+
+        <div id="resetPassModal" class="modal" hidden>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="modal-title">Reset Password</span>
+                    <button type="button" id="closeResetPass" class="rz-icon modal-close" data-icon="close" aria-label="Close"></button>
+                </div>
+                <form class="config-form">
+                    <div class="section">
+                        <div id="usernameContainer" class="modal-form-control" hidden>
+                            <label for="username">Cloudflare Email</label>
+                            <input type="text" id="username" name="username" autocomplete="on">
+                        </div>
+                        <div class="modal-form-control">
+                            <label for="newPassword">New Password</label>
+                            <div class="password-wrapper">
+                                <input type="password" id="newPassword" name="newPassword" required>
+                                <span class="rz-icon show-hide" data-icon="visibility_off" aria-hidden="true"></span>
+                            </div>
+                        </div>
+                        <div class="modal-form-control">
+                            <label for="confirmPassword">Confirm Password</label>
+                            <div class="password-wrapper">
+                                <input type="password" id="confirmPassword" name="confirmPassword" required>
+                                <span class="rz-icon show-hide" data-icon="visibility_off" aria-hidden="true"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="passwordError" class="password-error"></div>
+                    <button id="changePasswordBtn" type="submit" class="button">
+                        <span class="rz-icon" data-icon="save" aria-hidden="true"></span>
+                        Save
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div id="qrModal" class="modal" hidden>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span id="qrcodeTitle" class="modal-title"></span>
+                    <button type="button" class="rz-icon modal-close" data-icon="close" aria-label="Close"></button>
+                </div>
+                <div id="qrcode-container"></div>
+            </div>
+        </div>
+
+        <div>
+            <div class="header-container">
+                <h2><span class="rz-icon" data-icon="fingerprint" aria-hidden="true"></span> My IP</h2>
+                <button type="button" id="refresh-geo-location" class="refresh-geo-location" data-rz-action="refresh-ip" aria-label="Refresh IP information">
+                    <span class="rz-icon" data-icon="refresh" aria-hidden="true"></span>
+                </button>
+            </div>
+            <p class="rz-card-desc">The address this browser reaches the panel from, as Cloudflare sees it. Nothing is sent to a third-party lookup service.</p>
+            <div class="info-table">
+                <table id="ips">
+                    <thead>
+                        <tr>
+                            <th scope="col">Information</th>
+                            <th scope="col">Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>IP</td>
+                            <td id="ip"></td>
+                        </tr>
+                        <tr>
+                            <td>Country</td>
+                            <td id="country"></td>
+                        </tr>
+                        <tr>
+                            <td>City</td>
+                            <td id="city"></td>
+                        </tr>
+                        <tr>
+                            <td>ISP</td>
+                            <td id="isp"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="form-container container">
+        <div class="header-container">
+            <h2><span class="rz-icon" data-icon="verified" aria-hidden="true"></span> Supported Clients</h2>
+        </div>
+        <p class="rz-card-desc">Which apps open each subscription format, by platform. Pick one before copying a link.</p>
+        <div class="info-table">
+            <table id="supported-clients-table">
+                <thead>
+                    <tr>
+                        <th scope="col" aria-sort="ascending"><button type="button" class="rz-table-sort" data-client-sort="name" aria-label="Sort supported clients by name">Client <span class="rz-icon" data-icon="keyboard_arrow_down" aria-hidden="true"></span></button></th>
+                        <th scope="col"><button type="button" class="rz-table-sort" data-client-sort="minVer" aria-label="Sort supported clients by minimum requirement">Minimum Requirement <span class="rz-icon" data-icon="keyboard_arrow_down" aria-hidden="true"></span></button></th>
+                        <th scope="col"><button type="button" class="rz-table-sort" data-client-sort="source" aria-label="Sort supported clients by source">Get Latest <span class="rz-icon" data-icon="keyboard_arrow_down" aria-hidden="true"></span></button></th>
+                    </tr>
+                </thead>
+                <tbody id="supported-clients"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>/* JS_PLACEHOLDER */</script>
+</body>
+
+</html>

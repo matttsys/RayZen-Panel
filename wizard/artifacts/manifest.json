@@ -1,0 +1,17 @@
+{
+  "product": "RayZen Panel",
+  "version": "1.1.0",
+  "entry": "worker.js",
+  "compatibilityDate": "2026-08-06",
+  "compatibilityFlags": [
+    "nodejs_compat"
+  ],
+  "kvBinding": "kv",
+  "sha256": "bdf60bc8be5d9ec72aaa9ac006ca0f4a091c00bb0d5eee9d716f67a18d832be5",
+  "size": 577752,
+  "setupBuildMarker": "rayzen-setup-6df08e2d78a47eb1",
+  "buildMode": "production",
+  "toolchain": {
+    "esbuild": "0.28.1"
+  }
+}

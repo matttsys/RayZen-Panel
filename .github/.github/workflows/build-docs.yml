@@ -1,0 +1,53 @@
+name: Build Github Pages
+
+on:
+  push:
+    branches:
+      - main
+
+# Only what the deploy needs: `contents: write` is required because the site is
+# published by pushing to the `gh-pages` branch, not through the Pages deployment
+# API. Nothing here reads or writes issues, packages, deployments or actions.
+permissions:
+  contents: write
+
+# Two runs racing to push the same orphan branch is how a deployment ends up half
+# written. The in-progress run finishes; a newer commit supersedes a queued one.
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # Pinned rather than floating. A theme release that renames a feature key
+      # breaks `mkdocs build` on an unrelated commit, and the failure looks like a
+      # docs error rather than an upstream one.
+      - name: Install dependencies
+        run: pip install mkdocs-material==9.7.7
+
+      # Order matters. The English config writes to `site/` and mkdocs cleans its
+      # site_dir first, so building English second would delete the Farsi site.
+      - name: Build English site
+        run: mkdocs build -f docs/en/mkdocs.yml
+
+      - name: Build Farsi site
+        run: mkdocs build -f docs/fa/mkdocs.yml
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site
+          force_orphan: true
+          enable_jekyll: false
