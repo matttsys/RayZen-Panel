@@ -16,7 +16,14 @@ function filesUnder(dir) {
 }
 
 const files = new Set(filesUnder(root));
-const importPattern = /(?:import|export)\s+(?:[^'\"]*?\s+from\s+)?['\"]([^'\"]+)['\"]/g;
+
+// `import type` and `export type` declarations are erased before a bundle exists, so they
+// cannot contribute to initialisation order and cannot cause the TDZ crash this check is
+// here to prevent. Counting them reports cycles that exist only in the type graph, which
+// TypeScript permits by design — `src/platform/repositories.ts` naming `HourBucket` from
+// the feature that owns it is not a runtime dependency. An inline specifier such as
+// `import { normaliseProfiles, type Profile }` does import a value, so it stays an edge.
+const importPattern = /(?:import|export)\s+(?!type[\s{])(?:[^'"]*?\s+from\s+)?['"]([^'"]+)['"]/g;
 
 function candidate(path) {
   for (const value of [path, `${path}.ts`, join(path, 'index.ts')]) {
