@@ -56,7 +56,8 @@ the call failed.
     "cleanIps": true,
     "cleanIpManagement": true,
     "modes": true,
-    "trafficMetrics": true
+    "trafficMetrics": true,
+    "quickAdd": true
   }
 }
 ```
@@ -271,6 +272,26 @@ One direction at a time, and one place to fail:
 
 `WorkerEntity.lastSyncAt` is the last successful pull and is what the widget's "Synced …"
 line reports.
+
+## Quick Add (`rayzen://v1/<payload>`)
+
+Quick Add onboards a panel without typing an email or password.
+
+### URI & Payload Format
+`rayzen://v1/<payload>` where `<payload>` is a Base64URL-encoded (unpadded) compressed JSON blob (`deflate-raw` or `gzip`):
+```json
+{
+  "v": 1,
+  "h": "my-worker.workers.dev",
+  "p": "securePath",
+  "t": "token"
+}
+```
+
+### Routes
+- `POST panel/quick-add/mint`: Authenticated operator endpoint. Mints a single-use enrollment token with TTL (default 10 minutes = 600s). Returns the code.
+- `POST panel/quick-add/revoke`: Authenticated operator endpoint. Revokes an unredeemed token.
+- `POST panel/quick-add/redeem`: Public single-use redemption endpoint. Validates and consumes the enrollment token, returning a signed companion session token.
 
 ## Security and compatibility
 

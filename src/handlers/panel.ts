@@ -16,6 +16,7 @@ import { handlePlatform } from '@api/platform';
 import { withRecorder } from '@platform/record';
 import { edgeLocation, lookupAddresses, GeoResult } from '@api/geo';
 import { clearTraffic, trafficSnapshot } from '@features/analytics/traffic';
+import { mintQuickAdd, revokeQuickAdd, redeemQuickAdd } from './quick-add';
 
 export async function handlePanel(request: Request, env: Env): Promise<Response> {
     const { pathname } = getGlobals();
@@ -72,6 +73,15 @@ export async function handlePanel(request: Request, env: Env): Promise<Response>
         case 'panel/logout':
             return logout();
 
+        case 'panel/quick-add/mint':
+            return mintQuickAdd(request, env);
+
+        case 'panel/quick-add/revoke':
+            return revokeQuickAdd(request, env);
+
+        case 'panel/quick-add/redeem':
+            return redeemQuickAdd(request, env);
+
         default:
             return fallback(request);
     }
@@ -121,7 +131,9 @@ function getPanelVersion(): Response {
             /** `modes` reads and writes the proxy and fragment mode selections. */
             modes: true,
             /** `panel/metrics`: hourly traffic buckets, byte totals and a peak period. */
-            trafficMetrics: true
+            trafficMetrics: true,
+            /** `panel/quick-add/*`: minting, revocation and single-use redemption of rayzen://v1/ codes. */
+            quickAdd: true
         }
     }, {
         'Content-Type': 'application/json',
