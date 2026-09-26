@@ -5,7 +5,7 @@ import { handleTCPOutBound, makeReadableWebSocketStream, safeCloseTcpSocket } fr
 export async function TrOverWSHandler(request: Request): Promise<Response> {
     const webSocketPair = new WebSocketPair();
     const [client, webSocket] = Object.values(webSocketPair);
-    webSocket.accept();
+    webSocket.accept({ allowHalfOpen: true });
     webSocket.binaryType = 'arraybuffer';
 
     let address = '';

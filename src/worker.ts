@@ -26,6 +26,13 @@ export default {
 		 * sent rather than a `Content-Length` most streamed responses do not carry.
 		 * A failed flush is swallowed inside the module; serving traffic outranks
 		 * counting it.
+		 *
+		 * The transform is deliberately NOT on the proxy data plane. `measureRequest`
+		 * returns a 101 response untouched, and `/vl` and `/tr` are 101, so relaying a
+		 * socket never pays for byte counting. Keep that early return: wrapping a
+		 * upgraded response is what previously exhausted the CPU budget under sustained
+		 * traffic. Counting those connections by `content-length` at upgrade time is
+		 * accurate enough and costs nothing.
 		 */
 		const measured = measureRequest(request, response);
 		await flushTraffic(env.kv);

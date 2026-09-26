@@ -11,7 +11,12 @@ export async function VlOverWSHandler(request: Request): Promise<Response> {
     const { vlUUID } = getGlobals();
     const webSocketPair = new WebSocketPair();
     const [client, webSocket] = Object.values(webSocketPair);
-    webSocket.accept();
+    // `allowHalfOpen` is load-bearing on compatibility dates >= 2026-04-07, where
+    // `web_socket_auto_reply_to_close` is on by default. Without it the runtime answers a
+    // Close frame from one peer with a Close frame to the other, overriding the close
+    // coordination in `remoteSocketToWS` and tearing down in-flight relays as a reset.
+    // See https://developers.cloudflare.com/workers/runtime-apis/websockets/#half-open-mode-for-proxying
+    webSocket.accept({ allowHalfOpen: true });
     webSocket.binaryType = 'arraybuffer';
 
     let address = '';
