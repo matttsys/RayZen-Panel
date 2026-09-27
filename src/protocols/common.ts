@@ -35,9 +35,11 @@ export async function handleTCPOutBound(
 
         if (proxyIpMode === 'proxyip') {
             if (!proxyIPs.length) {
-                // No proxy IP configured: retrying would connect to an undefined
-                // host. Close with the reason rather than a bare failure.
-                webSocket.close(1011, 'Retry connection failed: no proxy IP configured');
+                // No proxy IP configured: retrying would connect to an undefined host.
+                // Close with an explicit, actionable reason (surfaced by Companion as
+                // "This Worker has no proxy IP configured — open panel settings") rather
+                // than a bare 1011 that clients render as "ws closed: 1011".
+                webSocket.close(1011, 'Worker misconfigured: no proxy IP configured — open panel settings > Proxy IP');
                 return;
             }
             log(`direct connection failed, trying to use Proxy IP for ${addressRemote}`);
