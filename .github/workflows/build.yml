@@ -3,7 +3,7 @@ permissions:
   contents: read
 on:
   push:
-    branches: [main, feat/polish]
+    branches: [main, feat/polish, feat/repair]
   pull_request:
   workflow_dispatch:
 jobs:
