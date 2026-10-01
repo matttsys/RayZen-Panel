@@ -77,6 +77,7 @@ nav:
     - Telegram Bot: configuration/telegram-bot.md
     - Common: configuration/common.md
     - VLESS - Trojan: configuration/vless-trojan.md 
+    - Proxy IP Setup: configuration/proxy-ip-setup.md
     - Fragment: configuration/fragment.md
     - External Raw Configs: configuration/external-configs.md
     - Warp General: configuration/warp.md
@@ -93,4 +94,5 @@ nav:
     - DoH: usage/doh.md
     - My IP: usage/my-ip.md
     - Supported Clients: usage/supported-clients.md
+    - Quick Add: usage/quick-add.md
   - FAQ: faq.md

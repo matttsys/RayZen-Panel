@@ -77,6 +77,7 @@ nav:
     - بات تلگرام: configuration/telegram-bot.md
     - تنظیمات مشترک یا Common: configuration/common.md 
     - پروتکل‌های VLESS و Trojan: configuration/vless-trojan.md 
+    - راه‌اندازی Proxy IP: configuration/proxy-ip-setup.md
     - تنظیمات Fragment: configuration/fragment.md
     - اضافه کردن کانفیگ‌های شخصی: configuration/external-configs.md
     - تنظیمات عمومی Warp: configuration/warp.md
@@ -93,4 +94,5 @@ nav:
     - DoH شخصی: usage/doh.md
     - IP من: usage/my-ip.md
     - برنامه‌های پشتیبانی‌شده: usage/supported-clients.md
+    - افزودن سریع: usage/quick-add.md
   - سوالات متداول: faq.md
