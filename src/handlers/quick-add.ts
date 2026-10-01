@@ -80,6 +80,10 @@ export async function mintQuickAdd(request: Request, env: Env): Promise<Response
             h: hostname,
             p: securePath,
             t: token,
+            // Epoch seconds the code expires. The companion parses this optional field
+            // for its "expires in ~X min" countdown and refuses already-expired codes
+            // at intake; the Panel still enforces expiry server-side on redeem.
+            e: Math.floor(expiresAt / 1000),
         };
 
         const encodedPayload = await compressAndEncodePayload(payloadObj);

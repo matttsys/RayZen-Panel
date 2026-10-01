@@ -78,6 +78,10 @@ describe('Quick Add endpoint lifecycle', () => {
         expect(mintData.body.code).toMatch(/^rayzen:\/\/v1\//);
         expect(mintData.body.token).toBeDefined();
 
+        // The minted payload carries epoch-seconds expiry for the companion's countdown
+        expect(mintData.body.payload.e).toBe(Math.floor(mintData.body.expiresAt / 1000));
+        expect(mintData.body.payload.e).toBeGreaterThan(Date.now() / 1000);
+
         const token = mintData.body.token;
 
         // Redeem the token
