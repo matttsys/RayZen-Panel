@@ -73,3 +73,6 @@
 
 ??? question "Why does sing-box throw an error while importing a subscription?"
     RayZen supports sing-box 1.12.0 or higher.
+
+??? question "I get `ws closed: 1011` / `no proxy IP configured` — what does it mean?"
+    The Worker tries a direct connection first and only falls back to a proxy IP when direct fails. Your proxy-IP list is empty, so there is no fallback. Add at least one proxy IP — see the [Proxy IP Setup](configuration/proxy-ip-setup.md) guide.
