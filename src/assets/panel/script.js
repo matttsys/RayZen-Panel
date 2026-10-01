@@ -3227,7 +3227,8 @@ Object.assign(RZ_FA, {
  'No clean IPs configured. Default hostname will be used.':'هیچ آی‌پی تمیزی تنظیم نشده است. از نام دامنه پیش‌فرض استفاده خواهد شد.',
  'Maximum 40 clean IPs allowed':'حداکثر ۴۰ آی‌پی تمیز مجاز است',
  'Invalid IP address or domain':'نشانی آی‌پی یا دامنه نامعتبر است',
- 'Duplicate address ignored':'نشانی تکراری نادیده گرفته شد'
+ 'Duplicate address ignored':'نشانی تکراری نادیده گرفته شد',
+ 'No proxy IPs configured. In Proxy IP mode the Worker rejects every retry — add at least one proxy IP, or switch to NAT64 with valid prefixes.':'هیچ آی‌پی پروکسی پیکربندی نشده است. در حالت Proxy IP ورکر همهٔ تلاش‌های مجدد را رد می‌کند — دست‌کم یک آی‌پی پروکسی اضافه کنید یا به NAT64 با پیشوندهای معتبر بروید.'
 });
 
 const RZ_FA_DIGITS='۰۱۲۳۴۵۶۷۸۹';
@@ -3400,6 +3401,22 @@ function isNewerVersion(latest, current) {
     return false;
 }
 
+/**
+ * Shows the Proxy IP warning while the mode is `proxyip` and the list is empty.
+ *
+ * That combination is the broken-by-default fresh-install state: the Worker closes
+ * every VLESS/Trojan retry with 1011 "no proxy IP configured". The warning is
+ * re-evaluated on every form change so it clears the moment the operator adds an
+ * address or switches to NAT64.
+ */
+function updateProxyIpWarning() {
+    const warn = document.getElementById('proxyIpEmptyWarn');
+    if (!warn) return;
+    const mode = document.getElementById('proxyIpMode')?.value;
+    const entries = document.getElementById('proxyIPs')?.value.split('\n').map(line => line.trim()).filter(Boolean) ?? [];
+    warn.hidden = !(mode === 'proxyip' && entries.length === 0);
+}
+
 function renderPanel(proxySettings, tgSettings, subscriptions, clients) {
     const {
         securePath,
@@ -3459,8 +3476,11 @@ function renderPanel(proxySettings, tgSettings, subscriptions, clients) {
 
     globalThis.initialFormData = new FormData(proxyForm);
     handleProxyFormChanges();
+    updateProxyIpWarning();
     proxyForm.addEventListener('input', handleProxyFormChanges);
     proxyForm.addEventListener('change', handleProxyFormChanges);
+    proxyForm.addEventListener('input', updateProxyIpWarning);
+    proxyForm.addEventListener('change', updateProxyIpWarning);
     handleFragmentMode();
 
     if (tgSettings) {

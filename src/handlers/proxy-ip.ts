@@ -24,6 +24,9 @@ export async function handleProxyIPs(request: Request, env: Env): Promise<Respon
         case 'proxy-ip/get':
             return getProxyIPsInfo(env);
 
+        case 'proxy-ip/status':
+            return getProxyIPStatus();
+
         case 'proxy-ip/test':
             return testProxyIP();
 
@@ -65,6 +68,25 @@ async function getProxyIPsInfo(env: Env): Promise<Response> {
         HttpStatus.OK,
         undefined,
         geoLocInfo
+    );
+}
+
+/**
+ * Minimal readiness signal for clients that must decide before dialling.
+ *
+ * The Companion's chain pre-flight reads this before the first candidate: a Worker in
+ * `proxyip` mode with an empty list rejects every retry with 1011, so the app blocks
+ * with an actionable message instead of failing four dials in a row. Same auth and
+ * envelope as every other JSON route under this handler.
+ */
+async function getProxyIPStatus(): Promise<Response> {
+    const { proxyIpMode, proxyIPs } = getGlobals();
+
+    return respond(
+        true,
+        HttpStatus.OK,
+        undefined,
+        { mode: proxyIpMode, count: proxyIPs.length }
     );
 }
 

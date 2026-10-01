@@ -118,6 +118,26 @@ function resolveWorkerName(env: Env, hostname: string): string {
     return hostname.split('.')[0];
 }
 
+/**
+ * Fresh-install defaults.
+ *
+ * `proxyip` with an empty list is deliberately kept as the default rather than switched
+ * to `prefix` (NAT64) mode, for two reasons:
+ *
+ * 1. Prefix mode is no more functional with zero configuration: it picks a random entry
+ *    from `prefixes`, and with an empty list the retry path throws instead of dialling.
+ *    Defaulting `prefixes` to the well-known `[64:ff9b::/96]` would not fix that either —
+ *    the well-known prefix only works where a NAT64 translator sits on the egress path
+ *    (RFC 6052), and Cloudflare Workers' `cloudflare:sockets` egress provides none, so
+ *    the synthesized address would simply fail to connect.
+ * 2. Existing deployments that never set a value rely on today's default semantics;
+ *    flipping the mode would change their behaviour without their consent.
+ *
+ * So the default stays `proxyip` + `[]`, and the empty state is made loud instead: the
+ * Panel shows a prominent warning on the Proxy IP card and the ./proxy-ip page while the
+ * list is empty, the Worker closes retries with an explicit actionable reason, and the
+ * Companion pre-flights the setting before the first dial.
+ */
 function emptyRecord(): IdentityRecord {
     return {
         accEmail: '',

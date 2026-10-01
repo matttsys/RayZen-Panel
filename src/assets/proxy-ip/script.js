@@ -12,9 +12,11 @@ async function loadGeoData() {
         }
 
         if (!body.length) {
+            // An empty list is a valid, successful answer — not a fetch failure. Say what it
+            // means and where to fix it instead of reporting "Failed to get Proxy IPs".
             const cell = elm('td', {
-                textContent: 'Failed to get Proxy IPs',
-                colSpan: '5'
+                textContent: 'No proxy IPs configured yet — add them in Panel settings, Proxy IP.',
+                colSpan: '7'
             });
             const row = elm('tr', {}, [cell]);
 
@@ -50,13 +52,42 @@ async function loadGeoData() {
         });
 
     } catch (err) {
-        const cell = elm('td', { colSpan: '5', textContent: `Error: ${err.message}` });
+        const cell = elm('td', { colSpan: '7', textContent: `Error: ${err.message}` });
         const row = elm('tr', {}, [cell]);
         tableBody.innerHTML = '';
         tableBody.appendChild(row);
         console.error(err);
     }
 }
+
+/**
+ * Prominent warning while the Worker is in Proxy IP mode with an empty list.
+ *
+ * That combination rejects every VLESS/Trojan retry, so the page says so at the top
+ * rather than leaving an empty table to imply it. Read from the same status route the
+ * Companion pre-flights, so the app and the page can never disagree.
+ */
+async function loadProxyIpWarning() {
+    try {
+        const res = await fetch('./proxy-ip/status');
+        const { success, body } = await res.json();
+        if (!success || !body) return;
+        if (body.mode === 'proxyip' && body.count === 0) {
+            const banner = elm('div', { className: 'proxy-ip-warn' }, [
+                elm('strong', { textContent: 'No proxy IPs configured. ' }),
+                document.createTextNode(
+                    'In Proxy IP mode the Worker rejects every retry — add at least one proxy IP ' +
+                    'in Panel settings, or switch to NAT64 with valid prefixes.'
+                )
+            ]);
+            document.querySelector('.table-wrapper')?.before(banner);
+        }
+    } catch (err) {
+        console.error('Failed to load proxy IP status:', err);
+    }
+}
+
+loadProxyIpWarning();
 
 function copyToClipboard(text) {
     navigator.clipboard.writeText(text)
